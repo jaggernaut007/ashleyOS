@@ -1,0 +1,28 @@
+import React from 'react';
+import type { Metadata } from 'next';
+import './globals.css';
+import PreloadLibs from './PreloadLibs';
+
+export const metadata: Metadata = {
+  title: 'Ashley OS - Create Apps for Your Mood',
+  description: 'Design beautiful, personalized app experiences that match your mood. Create once, enjoy forever.',
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <head>
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
+      <body className="antialiased font-sans selection:bg-gray-300 selection:text-gray-900" suppressHydrationWarning>
+        <PreloadLibs />
+        {children}
+      </body>
+    </html>
+  );
+}

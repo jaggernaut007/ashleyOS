@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply transition-colors duration-200;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-slate-50 via-gray-50 to-slate-50;
+  }
+
+  /* Minimal scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300/50 rounded-full hover:bg-gray-400/60;
+  }
+}
+
+@layer components {
+  /* Glass panels with minimal, modern look */
+  .glass-panel {
+    @apply bg-white/60 backdrop-blur-md border border-white/40 rounded-2xl shadow-glass;
+  }
+
+  .glass-panel-lg {
+    @apply bg-white/70 backdrop-blur-lg border border-white/40 rounded-3xl shadow-glass-lg;
+  }
+
+  /* Modern buttons - minimal style */
+  .glass-button {
+    @apply px-4 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 shadow-steel;
+  }
+
+  .glass-button-primary {
+    @apply glass-button bg-gray-900 text-white hover:bg-gray-800 active:scale-95;
+  }
+
+  .glass-button-secondary {
+    @apply glass-button bg-white/50 border border-gray-300/60 text-gray-700 hover:bg-white/70 hover:border-gray-400/80;
+  }
+
+  /* Minimal input style */
+  .input-glass {
+    @apply w-full px-4 py-3 bg-white/50 border border-gray-300/40 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-400/50 focus:border-transparent backdrop-blur-sm transition-all shadow-steel;
+  }
+
+  /* Glossy surface with subtle shine */
+  .glossy-surface {
+    @apply bg-white shadow-glossy;
+  }
+}
