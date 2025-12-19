@@ -19,7 +19,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className="antialiased font-sans selection:bg-gray-300 selection:text-gray-900" suppressHydrationWarning>
+      <body className="antialiased font-sans selection:bg-gray-300 selection:text-gray-900 transition-colors duration-500" suppressHydrationWarning>
         <PreloadLibs />
         {children}
       </body>

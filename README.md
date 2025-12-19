@@ -90,6 +90,17 @@ types/
 - TypeScript config lives in `tsconfig.json`; Next.js config in `next.config.ts`.
 - If you use the VS Code task, a background `dev` task is available.
 
+## Design Language for Generated Components
+
+- Shared guidance lives in `lib/designLanguage.ts` and is injected into coding agents.
+- Use the following classes for consistent visuals:
+  - Panels: `.panel-steel`, `.panel-steel-soft`, `.panel-frosted-glass`
+  - Buttons: `.button-steel`
+  - Inputs: `.input-steel`
+  - Layout: `w-full h-full`, `rounded-2xl`/`rounded-3xl`, responsive spacing
+- Theme awareness: the page sets `data-theme` to `day` or `night`; global CSS adapts accordingly.
+- The canvas wraps generated components with `.panel-steel-soft` for cohesion.
+
 ## License
 
 MIT

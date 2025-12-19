@@ -136,9 +136,15 @@ export default function DynamicCanvasRenderer({ code: propCode, className }: Dyn
         // Load external modules via CDN as needed and prepare identifiers
         for (const imp of imports) {
           if (!isExternal(imp.spec)) continue; // ignore local paths
+
           // Prefer preloaded globals if they match
           const maybeGlobalDefault = globals[imp.defaultIdent || ""];
           const maybeGlobalNs = globals[imp.namespaceIdent || ""];
+
+          // For React/react-dom, reuse in-memory React to avoid shadowing with CDN builds
+          if (imp.spec === 'react' || imp.spec === 'react-dom') {
+            continue; // React already injected as the first param
+          }
 
           let mod: any = null;
           if (imp.defaultIdent && maybeGlobalDefault) {

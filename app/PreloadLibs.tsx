@@ -16,7 +16,7 @@ async function loadFromCdn(spec: string): Promise<any> {
   return import(/* webpackIgnore: true */ url);
 }
 
-export default function PreloadLibs(): JSX.Element | null {
+export default function PreloadLibs(): null {
   useEffect(() => {
     (async () => {
       try {
