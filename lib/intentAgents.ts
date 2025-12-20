@@ -9,6 +9,19 @@ import { Artifact } from "@/types/board";
 import { generateText } from "ai";
 import { openai } from "@ai-sdk/openai";
 
+function logIntentUsage(agentName: string, intentDescription: string, domain: string, usage: any) {
+  const promptTokens = usage?.promptTokens ?? 0;
+  const completionTokens = usage?.completionTokens ?? 0;
+  const totalTokens = usage?.totalTokens ?? promptTokens + completionTokens;
+
+  console.log(`[intentAgents:${agentName}] Token usage`, {
+    intent: intentDescription,
+    domain,
+    promptTokens,
+    completionTokens,
+    totalTokens,
+  });
+}
 export interface IntentAssessment {
   intentId: string;
   intentDescription: string;
@@ -89,32 +102,34 @@ export function createIntentAgents(messageBus: MessageBus): IntentAgent[] {
           "health and wellness"
         );
 
-        try {
-          const { text } = await generateText({
-            model: openai("gpt-4o-mini"),
-            system: "You are a health-focused intent reasoning agent. Return ONLY valid JSON, no markdown or code blocks.",
-            prompt,
-          });
-
-          let assessment: IntentAssessment;
           try {
-            // Extract JSON from response if wrapped in code blocks
-            const jsonMatch = text.match(/\{[\s\S]*\}/);
-            const jsonStr = jsonMatch ? jsonMatch[0] : text;
-            const parsed = JSON.parse(jsonStr);
-            
-            assessment = {
-              intentId: "",
-              intentDescription,
-              domain: "health",
-              reasoning: parsed.reasoning || "",
-              requiresUI: parsed.requiresUI || false,
-              uiType: parsed.uiType,
-              guidance: parsed.guidance || "",
-              nextSteps: parsed.nextSteps || [],
-              confidence: parsed.confidence || 0.7,
-            };
-          } catch {
+            const { text, usage } = await generateText({
+              model: openai("gpt-4o-mini"),
+              system: "You are a health-focused intent reasoning agent. Return ONLY valid JSON, no markdown or code blocks.",
+              prompt,
+            });
+
+            logIntentUsage("HealthIntentAgent", intentDescription, "health", usage);
+
+            let assessment: IntentAssessment;
+            try {
+              // Extract JSON from response if wrapped in code blocks
+              const jsonMatch = text.match(/\{[\s\S]*\}/);
+              const jsonStr = jsonMatch ? jsonMatch[0] : text;
+              const parsed = JSON.parse(jsonStr);
+              
+              assessment = {
+                intentId: "",
+                intentDescription,
+                domain: "health",
+                reasoning: parsed.reasoning || "",
+                requiresUI: parsed.requiresUI || false,
+                uiType: parsed.uiType,
+                guidance: parsed.guidance || "",
+                nextSteps: parsed.nextSteps || [],
+                confidence: parsed.confidence || 0.7,
+              };
+            } catch {
             assessment = {
               intentId: "",
               intentDescription,
@@ -166,30 +181,32 @@ export function createIntentAgents(messageBus: MessageBus): IntentAgent[] {
           "finance and budgeting"
         );
 
-        try {
-          const { text } = await generateText({
-            model: openai("gpt-4o-mini"),
-            system: "You are a finance-focused intent reasoning agent. Return ONLY valid JSON, no markdown or code blocks.",
-            prompt,
-          });
-
-          let assessment: IntentAssessment;
           try {
-            const jsonMatch = text.match(/\{[\s\S]*\}/);
-            const jsonStr = jsonMatch ? jsonMatch[0] : text;
-            const parsed = JSON.parse(jsonStr);
-            assessment = {
-              intentId: "",
-              intentDescription,
-              domain: "finance",
-              reasoning: parsed.reasoning || "",
-              requiresUI: parsed.requiresUI || false,
-              uiType: parsed.uiType,
-              guidance: parsed.guidance || "",
-              nextSteps: parsed.nextSteps || [],
-              confidence: parsed.confidence || 0.7,
-            };
-          } catch {
+            const { text, usage } = await generateText({
+              model: openai("gpt-4o-mini"),
+              system: "You are a finance-focused intent reasoning agent. Return ONLY valid JSON, no markdown or code blocks.",
+              prompt,
+            });
+
+            logIntentUsage("FinanceIntentAgent", intentDescription, "finance", usage);
+
+            let assessment: IntentAssessment;
+            try {
+              const jsonMatch = text.match(/\{[\s\S]*\}/);
+              const jsonStr = jsonMatch ? jsonMatch[0] : text;
+              const parsed = JSON.parse(jsonStr);
+              assessment = {
+                intentId: "",
+                intentDescription,
+                domain: "finance",
+                reasoning: parsed.reasoning || "",
+                requiresUI: parsed.requiresUI || false,
+                uiType: parsed.uiType,
+                guidance: parsed.guidance || "",
+                nextSteps: parsed.nextSteps || [],
+                confidence: parsed.confidence || 0.7,
+              };
+            } catch {
             assessment = {
               intentId: "",
               intentDescription,
@@ -240,30 +257,32 @@ export function createIntentAgents(messageBus: MessageBus): IntentAgent[] {
           "goal setting and achievement"
         );
 
-        try {
-          const { text } = await generateText({
-            model: openai("gpt-4o-mini"),
-            system: "You are a goals-focused intent reasoning agent. Return ONLY valid JSON, no markdown or code blocks.",
-            prompt,
-          });
-
-          let assessment: IntentAssessment;
           try {
-            const jsonMatch = text.match(/\{[\s\S]*\}/);
-            const jsonStr = jsonMatch ? jsonMatch[0] : text;
-            const parsed = JSON.parse(jsonStr);
-            assessment = {
-              intentId: "",
-              intentDescription,
-              domain: "goals",
-              reasoning: parsed.reasoning || "",
-              requiresUI: parsed.requiresUI || false,
-              uiType: parsed.uiType,
-              guidance: parsed.guidance || "",
-              nextSteps: parsed.nextSteps || [],
-              confidence: parsed.confidence || 0.7,
-            };
-          } catch {
+            const { text, usage } = await generateText({
+              model: openai("gpt-4o-mini"),
+              system: "You are a goals-focused intent reasoning agent. Return ONLY valid JSON, no markdown or code blocks.",
+              prompt,
+            });
+
+            logIntentUsage("GoalsIntentAgent", intentDescription, "goals", usage);
+
+            let assessment: IntentAssessment;
+            try {
+              const jsonMatch = text.match(/\{[\s\S]*\}/);
+              const jsonStr = jsonMatch ? jsonMatch[0] : text;
+              const parsed = JSON.parse(jsonStr);
+              assessment = {
+                intentId: "",
+                intentDescription,
+                domain: "goals",
+                reasoning: parsed.reasoning || "",
+                requiresUI: parsed.requiresUI || false,
+                uiType: parsed.uiType,
+                guidance: parsed.guidance || "",
+                nextSteps: parsed.nextSteps || [],
+                confidence: parsed.confidence || 0.7,
+              };
+            } catch {
             assessment = {
               intentId: "",
               intentDescription,

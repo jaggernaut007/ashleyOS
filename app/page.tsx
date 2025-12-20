@@ -20,6 +20,7 @@ function HomeContent() {
   const [currentIntent, setCurrentIntent] = useState<Intent | null>(null);
   const [theme, setTheme] = useState<'day' | 'night'>('day');
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
+  const [isResettingBoard, setIsResettingBoard] = useState(false);
   const isNight = theme === 'night';
 
   const handleMoodAssetGenerated = useCallback((generatedCode: string) => {
@@ -50,6 +51,32 @@ function HomeContent() {
     }
   }, [setCode]);
 
+  const handleNewBoard = useCallback(async () => {
+    if (isResettingBoard) return;
+    const confirmed = window.confirm('Start a new board? This will clear current intents and artifacts.');
+    if (!confirmed) return;
+
+    try {
+      setIsResettingBoard(true);
+      const res = await fetch('/api/board', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'resetBoard', data: {} }),
+      });
+      if (!res.ok) throw new Error('Failed to create new board');
+      // Clear canvas content and current intent
+      setCode('');
+      setCurrentIntent(null);
+      // Optionally close library if open
+      setIsLibraryOpen(false);
+    } catch (err) {
+      console.error('Error resetting board:', err);
+      alert('Could not create a new board. Please try again.');
+    } finally {
+      setIsResettingBoard(false);
+    }
+  }, [isResettingBoard, setCode]);
+
   return (
     <main className={`grid h-screen w-full grid-cols-1 lg:grid-cols-[320px,1fr] bg-transparent overflow-hidden transition-colors duration-500 ${isNight ? 'text-slate-50' : 'text-slate-900'}`} data-theme={theme}>
       {/* Intent Console - Left Panel */}
@@ -79,6 +106,19 @@ function HomeContent() {
                 disabled={!code?.trim()}
               />
             )}
+            <button
+              type="button"
+              onClick={handleNewBoard}
+              disabled={isResettingBoard}
+              className={`px-4 py-2 rounded-full font-semibold shadow-steel-premium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 transition-all duration-200 ${
+                isNight
+                  ? 'bg-cyan-400 text-slate-900 hover:bg-cyan-300 ring-0 focus-visible:ring-cyan-300 focus-visible:ring-offset-slate-900 shadow-[0_0_0_1px_rgba(255,255,255,0.15),0_10px_30px_rgba(14,165,233,0.45)]'
+                  : 'bg-orange-500 text-white hover:bg-orange-400 ring-0 focus-visible:ring-orange-300 focus-visible:ring-offset-white shadow-[0_0_0_1px_rgba(15,23,42,0.08),0_10px_30px_rgba(251,146,60,0.45)]'
+              }`}
+              aria-label="Start a new mood board"
+            >
+              {isResettingBoard ? 'Creating…' : '✨ New Board'}
+            </button>
             <button
               type="button"
               onClick={() => setIsLibraryOpen(true)}

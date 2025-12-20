@@ -1,372 +1,39 @@
 {
-  "id": "board-1",
+  "id": "board-1766233016483",
   "title": "My Life Board",
   "description": "Personal decision and goal tracking",
-  "createdAt": "2025-12-19T14:17:51.568Z",
-  "updatedAt": "2025-12-19T16:48:14.627Z",
-  "intents": [
-    {
-      "id": "86c4bdac-eab1-4d21-9c76-294269265154",
-      "boardId": "board-1",
-      "title": "I want to start working out",
-      "description": "I want to start working out\n",
-      "domain": "goals",
-      "status": "draft",
-      "createdAt": "2025-12-19T14:26:41.531Z",
-      "updatedAt": "2025-12-19T14:26:41.531Z",
-      "artifacts": []
-    },
-    {
-      "id": "48e9e7d4-3b3a-409c-9c9c-2908fb832a1f",
-      "boardId": "board-1",
-      "title": "I want to start working out",
-      "description": "I want to start working out\n",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T14:26:54.303Z",
-      "updatedAt": "2025-12-19T14:26:54.303Z",
-      "artifacts": []
-    },
-    {
-      "id": "f4092eb5-cf03-42f9-887f-578befa0151a",
-      "boardId": "board-1",
-      "title": "I want to start working out 6 days a week, 3 days runnign and 3 days body building",
-      "description": "I want to start working out 6 days a week, 3 days runnign and 3 days body building\n",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T14:31:13.344Z",
-      "updatedAt": "2025-12-19T14:31:13.344Z",
-      "artifacts": []
-    },
-    {
-      "id": "c5bc9da3-690f-4a33-b3c4-55b78075a370",
-      "boardId": "board-1",
-      "title": " I want to start working out 6 days a week, 3 days runnign and 3 days body building",
-      "description": " I want to start working out 6 days a week, 3 days runnign and 3 days body building",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T14:53:03.801Z",
-      "updatedAt": "2025-12-19T14:53:03.801Z",
-      "artifacts": []
-    },
-    {
-      "id": "ca037c1c-4a58-4531-a33b-09e89c6a64f1",
-      "boardId": "board-1",
-      "title": "I want to workout today",
-      "description": "I want to workout today\n",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T14:56:32.311Z",
-      "updatedAt": "2025-12-19T14:56:32.311Z",
-      "artifacts": []
-    },
-    {
-      "id": "f8d13caa-89e5-4176-a02d-e7be019c36bd",
-      "boardId": "board-1",
-      "title": "I want to workout today",
-      "description": "I want to workout today\n",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T14:57:50.836Z",
-      "updatedAt": "2025-12-19T14:57:50.836Z",
-      "artifacts": []
-    },
-    {
-      "id": "06f7db0f-6ff4-4828-bb2e-3d2529788871",
-      "boardId": "board-1",
-      "title": "I want to improve my fitness routine",
-      "description": "I want to improve my fitness routine",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T14:58:08.836Z",
-      "updatedAt": "2025-12-19T14:58:08.836Z",
-      "artifacts": []
-    },
-    {
-      "id": "0c20ad3b-fa70-49ed-85fa-0d44a646cb2b",
-      "boardId": "board-1",
-      "title": "I want to improve my fitness",
-      "description": "I want to improve my fitness\n",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T15:06:17.330Z",
-      "updatedAt": "2025-12-19T15:06:17.330Z",
-      "artifacts": []
-    },
-    {
-      "id": "8ef22841-cce4-4b0d-958e-185f90e70b6e",
-      "boardId": "board-1",
-      "title": "I want to improve my fitness",
-      "description": "I want to improve my fitness\n",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T15:08:29.962Z",
-      "updatedAt": "2025-12-19T15:11:22.900Z",
-      "artifacts": [
-        {
-          "id": "f49577b8-5631-483c-9e56-eaa47dd0db5a",
-          "type": "moodAsset",
-          "title": "Mood Asset: I want to improve my fitness",
-          "content": "import React, { useState } from 'react';\n\nconst FitnessMoodAsset = () => {\n  const [goal, setGoal] = useState('');\n  const [progress, setProgress] = useState(0);\n\n  return (\n    <div className=\"w-full h-full flex flex-col items-center justify-center p-8 bg-green-100 rounded-lg shadow-lg\">\n      <h1 className=\"text-3xl font-bold text-green-700 mb-4\">🏋️‍♂️ Fitness Planner</h1>\n      <div className=\"flex items-center mb-6\">\n        <input \n          type=\"text\" \n          placeholder=\"Set your fitness goal...\" \n          value={goal} \n          onChange={(e) => setGoal(e.target.value)} \n          className=\"border border-green-400 p-2 rounded-md mr-2 focus:outline-none focus:ring focus:ring-green-600\"\n        />\n        <button \n          onClick={() => setProgress(progress + 10)}\n          className=\"bg-green-600 text-white p-2 rounded-md hover:bg-green-500 transition\"\n        >\n          Add Progress\n        </button>\n      </div>\n      <div className=\"w-full max-w-md\">\n        <div className=\"relative w-full h-4 bg-gray-200 rounded-full mb-4\">\n          <div \n            className=\"absolute h-full bg-green-500 rounded-full transition-all duration-300\" \n            style={{ width: `${progress}%` }}\n          />\n        </div>\n        <p className=\"text-lg text-center text-green-600\">{progress}% of your goal achieved!</p>\n      </div>\n      <textarea \n        placeholder=\"Journaling about your journey...\" \n        className=\"w-full h-24 p-2 border border-green-400 rounded-md mt-6 resize-none focus:outline-none focus:ring focus:ring-green-600\"\n      />\n    </div>\n  );\n};\n\nexport default FitnessMoodAsset;",
-          "createdAt": "2025-12-19T15:10:48.346Z",
-          "updatedAt": "2025-12-19T15:10:48.346Z",
-          "intentId": "8ef22841-cce4-4b0d-958e-185f90e70b6e"
-        },
-        {
-          "id": "8903f2f4-4062-4b14-a508-fa48b99761ff",
-          "type": "decision",
-          "title": "fitness",
-          "content": "jourtney",
-          "createdAt": "2025-12-19T15:11:00.790Z",
-          "updatedAt": "2025-12-19T15:11:00.790Z",
-          "intentId": "8ef22841-cce4-4b0d-958e-185f90e70b6e"
-        },
-        {
-          "id": "fbdebcf7-c704-47fd-9055-1c39a6f9080a",
-          "type": "constraint",
-          "title": "fitness ",
-          "content": "journey",
-          "createdAt": "2025-12-19T15:11:10.759Z",
-          "updatedAt": "2025-12-19T15:11:10.759Z",
-          "intentId": "8ef22841-cce4-4b0d-958e-185f90e70b6e"
-        },
-        {
-          "id": "07f3b59e-4015-409f-b269-370043c378b9",
-          "type": "preference",
-          "title": "fitness",
-          "content": "journey",
-          "createdAt": "2025-12-19T15:11:22.900Z",
-          "updatedAt": "2025-12-19T15:11:22.900Z",
-          "intentId": "8ef22841-cce4-4b0d-958e-185f90e70b6e"
-        }
-      ]
-    },
-    {
-      "id": "88b37445-a7dc-4cb1-8b4e-1b6380009075",
-      "boardId": "board-1",
-      "title": "I want to be fit",
-      "description": "I want to be fit",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T15:11:51.590Z",
-      "updatedAt": "2025-12-19T15:11:51.590Z",
-      "artifacts": []
-    },
-    {
-      "id": "cd4ab394-f557-4a39-8789-51551ca5c80c",
-      "boardId": "board-1",
-      "title": "i want to be fit",
-      "description": "i want to be fit\n",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T15:13:24.209Z",
-      "updatedAt": "2025-12-19T15:13:24.209Z",
-      "artifacts": []
-    },
-    {
-      "id": "07f82805-40eb-4daa-a558-83f88a28e93c",
-      "boardId": "board-1",
-      "title": "i want to track my running",
-      "description": "i want to track my running",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T15:17:52.811Z",
-      "updatedAt": "2025-12-19T15:22:49.795Z",
-      "artifacts": [
-        {
-          "id": "aeff6c6f-37d1-42a7-9da4-ab2352ecd6c8",
-          "type": "moodAsset",
-          "title": "Mood Asset: i want to track my running",
-          "content": "import React, { useState } from 'react';\n\nconst FitnessMoodAsset = () => {\n  const [goal, setGoal] = useState('');\n  const [progress, setProgress] = useState(0);\n  const [todos, setTodos] = useState(['Run 3 times a week', 'Drink at least 2 liters of water', 'Get 7-8 hours of sleep', 'Eat fruits and vegetables']);\n  const [completedTodos, setCompletedTodos] = useState(new Array(todos.length).fill(false));\n\n  const toggleTodo = (index) => {\n    const updatedTodos = [...completedTodos];\n    updatedTodos[index] = !updatedTodos[index];\n    setCompletedTodos(updatedTodos);\n  };\n\n  return (\n    <div className=\"w-full h-full flex flex-col items-center justify-center p-8 bg-green-100 rounded-lg shadow-lg\">\n      <h1 className=\"text-3xl font-bold text-green-700 mb-4\">🏋️‍♂️ Fitness Planner</h1>\n      <div className=\"flex items-center mb-6\">\n        <input \n          type=\"text\" \n          placeholder=\"Set your fitness goal...\" \n          value={goal} \n          onChange={(e) => setGoal(e.target.value)} \n          className=\"border border-green-400 p-2 rounded-md mr-2 focus:outline-none focus:ring focus:ring-green-600\"\n        />\n        <button \n          onClick={() => setProgress(progress + 10)}\n          className=\"bg-green-600 text-white p-2 rounded-md hover:bg-green-500 transition\"\n        >\n          Add Progress\n        </button>\n      </div>\n      <div className=\"w-full max-w-md\">\n        <div className=\"relative w-full h-4 bg-gray-200 rounded-full mb-4\">\n          <div \n            className=\"absolute h-full bg-green-500 rounded-full transition-all duration-300\" \n            style={{ width: `${progress}%` }}\n          />\n        </div>\n        <p className=\"text-lg text-center text-green-600\">{progress}% of your goal achieved!</p>\n      </div>\n      <textarea \n        placeholder=\"Journaling about your journey...\" \n        className=\"w-full h-24 p-2 border border-green-400 rounded-md mt-6 resize-none focus:outline-none focus:ring focus:ring-green-600\"\n      />\n      <div className=\"w-full mt-6\">\n        <h2 className=\"text-2xl font-semibold text-green-700 mb-2\">🏃‍♂️ To-Do List</h2>\n        <ul className=\"list-disc list-inside\">\n          {todos.map((todo, index) => (\n            <li key={index} className={`flex items-center mb-1 ${completedTodos[index] ? 'line-through text-gray-500' : 'text-green-700'}`}>\n              <input \n                type=\"checkbox\" \n                checked={completedTodos[index]} \n                onChange={() => toggleTodo(index)} \n                className=\"mr-2\"\n              />\n              {todo}\n            </li>\n          ))}\n        </ul>\n      </div>\n    </div>\n  );\n};\n\nexport default FitnessMoodAsset;",
-          "createdAt": "2025-12-19T15:22:49.794Z",
-          "updatedAt": "2025-12-19T15:22:49.794Z",
-          "intentId": "07f82805-40eb-4daa-a558-83f88a28e93c"
-        }
-      ]
-    },
-    {
-      "id": "dbacb2d0-acd0-41f9-992b-003dc8c7f55d",
-      "boardId": "board-1",
-      "title": "I want to become fit. give me a weekly planner",
-      "description": "I want to become fit. give me a weekly planner",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T16:20:43.223Z",
-      "updatedAt": "2025-12-19T16:20:43.223Z",
-      "artifacts": []
-    },
-    {
-      "id": "ae6a3feb-35b4-4254-b7a1-02b205586625",
-      "boardId": "board-1",
-      "title": "I want a weekly fitness planner with a todo list",
-      "description": "I want a weekly fitness planner with a todo list\n",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T16:22:30.040Z",
-      "updatedAt": "2025-12-19T16:22:30.040Z",
-      "artifacts": []
-    },
-    {
-      "id": "21fdd882-30b5-4b31-ac27-1b740d45c160",
-      "boardId": "board-1",
-      "title": "I want a weekly fitness planner",
-      "description": "I want a weekly fitness planner\n",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T16:27:39.672Z",
-      "updatedAt": "2025-12-19T16:27:39.672Z",
-      "artifacts": []
-    },
-    {
-      "id": "36aeefd5-6ce4-44b3-a66b-5ae8c7b112e4",
-      "boardId": "board-1",
-      "title": "i want a fitness planner",
-      "description": "i want a fitness planner",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T16:30:42.366Z",
-      "updatedAt": "2025-12-19T16:30:42.366Z",
-      "artifacts": []
-    },
-    {
-      "id": "ba2da224-fbf8-459e-a087-800eb94a98d3",
-      "boardId": "board-1",
-      "title": "give me a fitness planner weekly",
-      "description": "give me a fitness planner weekly\n",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T16:32:25.111Z",
-      "updatedAt": "2025-12-19T16:32:25.111Z",
-      "artifacts": []
-    },
-    {
-      "id": "b63e443c-f031-4e1e-8b8f-195f88c708c6",
-      "boardId": "board-1",
-      "title": "give me a fitness planner weekly",
-      "description": "give me a fitness planner weekly\n",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T16:33:18.016Z",
-      "updatedAt": "2025-12-19T16:33:18.016Z",
-      "artifacts": []
-    },
-    {
-      "id": "88e20666-447d-4868-b690-4e1aafd98ada",
-      "boardId": "board-1",
-      "title": "give me a weekly fitness tracker",
-      "description": "give me a weekly fitness tracker\n",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T16:39:50.110Z",
-      "updatedAt": "2025-12-19T16:39:50.110Z",
-      "artifacts": []
-    },
-    {
-      "id": "5ab82503-3608-4dff-9a63-393753c13969",
-      "boardId": "board-1",
-      "title": "daily fitness tracker minimal",
-      "description": "daily fitness tracker minimal\n",
-      "domain": "health",
-      "status": "draft",
-      "createdAt": "2025-12-19T16:45:45.311Z",
-      "updatedAt": "2025-12-19T16:48:14.627Z",
-      "artifacts": [
-        {
-          "id": "d15e1442-9750-496f-b7e6-eac86efcd5b6",
-          "type": "moodAsset",
-          "title": "Mood Asset: daily fitness tracker minimal",
-          "content": "import React, { useState, useEffect, useRef } from \"react\";\n\nexport default function FitnessMoodAsset() {\n  // Weekly goal in km (or units)\n  const [goal, setGoal] = useState(() => {\n    const saved = localStorage.getItem(\"fitness_goal_km\");\n    return saved ? Number(saved) : 20;\n  });\n\n  // Map of date (YYYY-MM-DD) -> km\n  const [runs, setRuns] = useState(() => {\n    try {\n      const raw = localStorage.getItem(\"fitness_runs_map\");\n      return raw ? JSON.parse(raw) : {};\n    } catch {\n      return {};\n    }\n  });\n\n  // Quick add input\n  const [addKm, setAddKm] = useState(\"\");\n\n  // Journal\n  const [journal, setJournal] = useState(() => {\n    return localStorage.getItem(\"fitness_journal\") || \"\";\n  });\n\n  // Quick habits\n  const initialHabits = [\n    { id: 1, label: \"Run / Walk\", key: \"habit_run\" },\n    { id: 2, label: \"Hydration 2L+\", key: \"habit_water\" },\n    { id: 3, label: \"Sleep 7-8h\", key: \"habit_sleep\" },\n  ];\n  const [habits, setHabits] = useState(() => {\n    try {\n      const raw = localStorage.getItem(\"fitness_habits\");\n      if (raw) return JSON.parse(raw);\n    } catch {}\n    // initialize from defaults as unchecked\n    return initialHabits.map((h) => ({ ...h, done: false }));\n  });\n\n  // floating confetti trigger for milestone\n  const [celebrate, setCelebrate] = useState(false);\n\n  // refs for animation timing\n  const celebrateTimeout = useRef(null);\n\n  useEffect(() => {\n    localStorage.setItem(\"fitness_goal_km\", String(goal));\n  }, [goal]);\n\n  useEffect(() => {\n    localStorage.setItem(\"fitness_runs_map\", JSON.stringify(runs));\n  }, [runs]);\n\n  useEffect(() => {\n    localStorage.setItem(\"fitness_journal\", journal);\n  }, [journal]);\n\n  useEffect(() => {\n    localStorage.setItem(\"fitness_habits\", JSON.stringify(habits));\n  }, [habits]);\n\n  // Helpers to format dates\n  const todayKey = (d = new Date()) => d.toISOString().slice(0, 10);\n\n  const lastNDates = (n = 7) => {\n    const arr = [];\n    for (let i = n - 1; i >= 0; i--) {\n      const d = new Date();\n      d.setDate(d.getDate() - i);\n      arr.push(d);\n    }\n    return arr;\n  };\n\n  // Weekly values for the last 7 days\n  const weekDates = lastNDates(7);\n  const weekValues = weekDates.map((d) => runs[d.toISOString().slice(0, 10)] || 0);\n  const totalThisWeek = weekValues.reduce((s, v) => s + v, 0);\n  const progressPct = Math.min(100, Math.round((totalThisWeek / Math.max(1, goal)) * 100));\n\n  // Add run for today\n  const handleAddRun = (e) => {\n    e?.preventDefault();\n    const km = parseFloat(addKm);\n    if (Number.isNaN(km) || km <= 0) return;\n    const key = todayKey();\n    setRuns((prev) => {\n      const next = { ...prev, [key]: (prev[key] || 0) + Number(km) };\n      return next;\n    });\n    setAddKm(\"\");\n    // celebrate if crossing milestone (>= goal)\n    const newTotal = totalThisWeek + km;\n    if (newTotal >= goal && totalThisWeek < goal) {\n      setCelebrate(true);\n      clearTimeout(celebrateTimeout.current);\n      celebrateTimeout.current = setTimeout(() => setCelebrate(false), 3500);\n    }\n  };\n\n  // Toggle habit\n  const toggleHabit = (id) => {\n    setHabits((h) => h.map((item) => (item.id === id ? { ...item, done: !item.done } : item)));\n  };\n\n  // Reset week (quick action)\n  const resetWeek = () => {\n    const newRuns = { ...runs };\n    weekDates.forEach((d) => {\n      const key = d.toISOString().slice(0, 10);\n      delete newRuns[key];\n    });\n    setRuns(newRuns);\n  };\n\n  // SVG circular progress calculations\n  const radius = 36;\n  const circumference = 2 * Math.PI * radius;\n  const strokeDashoffset = circumference - (progressPct / 100) * circumference;\n\n  // small accessibility helper for keyboard add\n  const addInputRef = useRef(null);\n\n  return (\n    <div className=\"w-full h-full p-6 bg-gradient-to-br from-emerald-50 via-emerald-100 to-white rounded-2xl shadow-inner overflow-hidden flex flex-col\">\n      <header className=\"flex items-center justify-between mb-4\">\n        <div className=\"flex items-center space-x-3\">\n          <div className=\"relative\">\n            <div className=\"w-14 h-14 rounded-full bg-emerald-600 flex items-center justify-center text-white text-2xl shadow-lg transform transition-transform duration-500 hover:scale-105\">\n              🏃‍♀️\n            </div>\n            {celebrate && (\n              <div className=\"absolute -top-2 -right-2 flex space-x-1\">\n                <span className=\"text-sm animate-bounce text-yellow-400\">✨</span>\n                <span className=\"text-sm animate-bounce text-pink-400\">🎉</span>\n              </div>\n            )}\n          </div>\n          <div>\n            <h1 className=\"text-2xl font-semibold text-emerald-800 leading-tight\">Daily Fitness Planner</h1>\n            <p className=\"text-sm text-emerald-600\">Set clear goals • Track runs • Reflect daily</p>\n          </div>\n        </div>\n\n        <div className=\"flex items-center space-x-3\">\n          <div className=\"text-right\">\n            <p className=\"text-xs text-emerald-500\">Weekly goal</p>\n            <div className=\"flex items-baseline space-x-2\">\n              <input\n                aria-label=\"Weekly goal in kilometers\"\n                type=\"number\"\n                min=\"1\"\n                value={goal}\n                onChange={(e) => setGoal(Math.max(1, Number(e.target.value || 0)))}\n                className=\"w-20 bg-white text-emerald-800 font-semibold px-2 py-1 rounded-md border border-emerald-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-300\"\n              />\n              <span className=\"text-xs text-emerald-600\">km / week</span>\n            </div>\n          </div>\n\n          <div className=\"w-20 h-20 flex items-center justify-center\">\n            <svg className=\"w-20 h-20 transform -rotate-90\" viewBox=\"0 0 80 80\">\n              <defs>\n                <linearGradient id=\"g1\" x1=\"0\" x2=\"1\">\n                  <stop offset=\"0%\" stopColor=\"#059669\" />\n                  <stop offset=\"100%\" stopColor=\"#10B981\" />\n                </linearGradient>\n              </defs>\n              <g>\n                <circle cx=\"40\" cy=\"40\" r={radius} stroke=\"#E6F4EE\" strokeWidth=\"8\" fill=\"none\" />\n                <circle\n                  cx=\"40\"\n                  cy=\"40\"\n                  r={radius}\n                  stroke=\"url(#g1)\"\n                  strokeWidth=\"8\"\n                  strokeLinecap=\"round\"\n                  fill=\"none\"\n                  strokeDasharray={circumference}\n                  strokeDashoffset={strokeDashoffset}\n                  style={{ transition: \"stroke-dashoffset 700ms cubic-bezier(.2,.9,.2,1)\" }}\n                />\n                <text x=\"40\" y=\"45\" textAnchor=\"middle\" className=\"text-sm\" style={{ fontSize: 12, fill: \"#065f46\", fontWeight: 700 }}>\n                  {progressPct}%\n                </text>\n              </g>\n            </svg>\n          </div>\n        </div>\n      </header>\n\n      <main className=\"flex-1 grid grid-cols-1 md:grid-cols-3 gap-4\">\n        {/* Left: Chart + summary */}\n        <section className=\"col-span-2 bg-white rounded-xl p-4 shadow-sm flex flex-col\">\n          <div className=\"flex items-center justify-between mb-3\">\n            <h2 className=\"text-lg font-medium text-emerald-700 flex items-center space-x-2\">\n              <span>Weekly Activity</span>\n              <span className=\"text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full\">last 7 days</span>\n            </h2>\n            <div className=\"text-sm text-emerald-600\">\n              <div>Total: <span className=\"font-semibold text-emerald-800\">{totalThisWeek} km</span></div>\n              <div className=\"text-xs\">Goal: {goal} km</div>\n            </div>\n          </div>\n\n          <div className=\"flex-1 flex flex-col md:flex-row md:items-end md:justify-between\">\n            {/* Bars */}\n            <div className=\"flex-1 flex items-end space-x-2 px-2 py-3\">\n              {weekValues.map((v, idx) => {\n                const max = Math.max(...weekValues, goal / 7, 1);\n                const heightPct = Math.min(100, Math.round((v / max) * 100));\n                const day = weekDates[idx].toLocaleDateString(undefined, { weekday: \"short\" }).slice(0, 3);\n                return (\n                  <div key={idx} className=\"flex-1 flex flex-col items-center\">\n                    <div\n                      className=\"w-full bg-emerald-100 rounded-t-md relative overflow-hidden transition-all duration-500\"\n                      style={{ height: `${Math.max(8, Math.round((heightPct / 100) * 160))}px` }}\n                      title={`${day}: ${v} km`}\n                    >\n                      <div className=\"absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs text-emerald-700 font-medium\">\n                        {v > 0 ? `${v} km` : \"\"}\n                      </div>\n                    </div>\n                    <div className=\"mt-2 text-xs text-emerald-500\">{day}</div>\n                  </div>\n                );\n              })}\n            </div>\n\n            {/* Quick add / actions */}\n            <div className=\"mt-4 md:mt-0 md:ml-6 w-full md:w-56 bg-emerald-50 border border-emerald-100 rounded-lg p-3 shadow-inner\">\n              <form onSubmit={handleAddRun} className=\"flex flex-col space-y-2\">\n                <label className=\"text-xs text-emerald-600 font-medium\">Quick Add Run</label>\n                <div className=\"flex items-center space-x-2\">\n                  <input\n                    ref={addInputRef}\n                    aria-label=\"Add kilometers\"\n                    type=\"number\"\n                    step=\"0.1\"\n                    min=\"0\"\n                    placeholder=\"e.g., 5.2\"\n                    value={addKm}\n                    onChange={(e) => setAddKm(e.target.value)}\n                    className=\"flex-1 px-2 py-2 rounded-md border border-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-300 bg-white\"\n                  />\n                  <button\n                    type=\"submit\"\n                    onClick={handleAddRun}\n                    className=\"bg-emerald-600 text-white px-3 py-2 rounded-md hover:bg-emerald-500 transform transition duration-200 active:scale-95 flex items-center space-x-2\"\n                  >\n                    <span className=\"text-lg\">➕</span>\n                    <span className=\"text-sm font-medium\">Add</span>\n                  </button>\n                </div>\n                <div className=\"flex items-center justify-between text-xs text-emerald-500\">\n                  <button\n                    type=\"button\"\n                    onClick={() => {\n                      setAddKm(\"1\");\n                      addInputRef.current?.focus();\n                    }}\n                    className=\"px-2 py-1 rounded-md hover:bg-emerald-100\"\n                  >\n                    +1 km\n                  </button>\n                  <button\n                    type=\"button\"\n                    onClick={() => resetWeek()}\n                    className=\"px-2 py-1 rounded-md text-rose-600 hover:bg-rose-50\"\n                    title=\"Clear this week's entries\"\n                  >\n                    Reset week\n                  </button>\n                </div>\n              </form>\n            </div>\n          </div>\n        </section>\n\n        {/* Right: Journal + Habits */}\n        <aside className=\"col-span-1 flex flex-col space-y-4\">\n          <div className=\"bg-white rounded-xl p-3 shadow-sm flex flex-col\">\n            <div className=\"flex items-center justify-between mb-2\">\n              <h3 className=\"text-sm font-medium text-emerald-700\">Journal ✍️</h3>\n              <p className=\"text-xs text-emerald-500\">{new Date().toLocaleDateString()}</p>\n            </div>\n            <textarea\n              placeholder=\"Reflect on today's run or set a mini intention...\"\n              value={journal}\n              onChange={(e) => setJournal(e.target.value)}\n              className=\"w-full min-h-[120px] resize-none p-2 border border-emerald-100 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-200\"\n            />\n            <div className=\"mt-2 flex items-center justify-between\">\n              <div className=\"text-xs text-emerald-500\">\n                {journal.length} chars\n              </div>\n              <div className=\"flex items-center space-x-2\">\n                <button\n                  onClick={() => {\n                    setJournal(\"\");\n                  }}\n                  className=\"text-xs px-2 py-1 rounded-md hover:bg-emerald-50 text-rose-600\"\n                >\n                  Clear\n                </button>\n                <button\n                  onClick={() => {\n                    // small pulse animation\n                    setCelebrate(true);\n                    clearTimeout(celebrateTimeout.current);\n                    celebrateTimeout.current = setTimeout(() => setCelebrate(false), 900);\n                  }}\n                  className=\"bg-emerald-600 text-white text-xs px-3 py-1 rounded-md hover:bg-emerald-500\"\n                >\n                  Save Note\n                </button>\n              </div>\n            </div>\n          </div>\n\n          <div className=\"bg-white rounded-xl p-3 shadow-sm\">\n            <h4 className=\"text-sm font-medium text-emerald-700 mb-2\">Today's Habits</h4>\n            <ul className=\"space-y-2\">\n              {habits.map((h) => (\n                <li key={h.id} className=\"flex items-center justify-between\">\n                  <div className=\"flex items-center space-x-2\">\n                    <button\n                      onClick={() => toggleHabit(h.id)}\n                      className={`w-9 h-9 flex items-center justify-center rounded-md transition ${\n                        h.done ? \"bg-emerald-600 text-white\" : \"bg-emerald-50 text-emerald-600 border border-emerald-100\"\n                      }`}\n                      aria-pressed={h.done}\n                    >\n                      {h.done ? \"✓\" : \"○\"}\n                    </button>\n                    <span className={`text-sm ${h.done ? \"line-through text-emerald-400\" : \"text-emerald-700\"}`}>{h.label}</span>\n                  </div>\n                  <div className=\"text-xs text-emerald-500\">{h.done ? \"Done\" : \"Tap\"}</div>\n                </li>\n              ))}\n            </ul>\n            <div className=\"mt-3 text-xs text-emerald-500\">\n              Small wins add up — toggle a habit to celebrate momentum.\n            </div>\n          </div>\n        </aside>\n      </main>\n\n      <footer className=\"mt-4 flex items-center justify-between text-xs text-emerald-600\">\n        <div className=\"flex items-center space-x-3\">\n          <span className=\"px-2 py-1 bg-emerald-50 rounded-md\">✨ Keep it consistent</span>\n          <span className=\"px-2 py-1 bg-emerald-50 rounded-md\">🧭 Plan • Do • Reflect</span>\n        </div>\n        <div className=\"flex items-center space-x-3\">\n          <div className=\"text-emerald-500\">Need a nudge? Try a 10-min run today</div>\n          <button\n            onClick={() => {\n              // add small 1 km as nudge\n              setRuns((prev) => {\n                const key = todayKey();\n                const next = { ...prev, [key]: (prev[key] || 0) + 1 };\n                return next;\n              });\n              setCelebrate(true);\n              clearTimeout(celebrateTimeout.current);\n              celebrateTimeout.current = setTimeout(() => setCelebrate(false), 1600);\n            }}\n            className=\"bg-emerald-600 text-white px-3 py-1 rounded-md hover:bg-emerald-500\"\n          >\n            Nudge +1 km\n          </button>\n        </div>\n      </footer>\n    </div>\n  );\n}",
-          "createdAt": "2025-12-19T16:48:14.623Z",
-          "updatedAt": "2025-12-19T16:48:14.623Z",
-          "intentId": "5ab82503-3608-4dff-9a63-393753c13969"
-        }
-      ]
-    }
-  ],
-  "artifacts": [
-    {
-      "id": "f49577b8-5631-483c-9e56-eaa47dd0db5a",
-      "type": "moodAsset",
-      "title": "Mood Asset: I want to improve my fitness",
-      "content": "import React, { useState } from 'react';\n\nconst FitnessMoodAsset = () => {\n  const [goal, setGoal] = useState('');\n  const [progress, setProgress] = useState(0);\n\n  return (\n    <div className=\"w-full h-full flex flex-col items-center justify-center p-8 bg-green-100 rounded-lg shadow-lg\">\n      <h1 className=\"text-3xl font-bold text-green-700 mb-4\">🏋️‍♂️ Fitness Planner</h1>\n      <div className=\"flex items-center mb-6\">\n        <input \n          type=\"text\" \n          placeholder=\"Set your fitness goal...\" \n          value={goal} \n          onChange={(e) => setGoal(e.target.value)} \n          className=\"border border-green-400 p-2 rounded-md mr-2 focus:outline-none focus:ring focus:ring-green-600\"\n        />\n        <button \n          onClick={() => setProgress(progress + 10)}\n          className=\"bg-green-600 text-white p-2 rounded-md hover:bg-green-500 transition\"\n        >\n          Add Progress\n        </button>\n      </div>\n      <div className=\"w-full max-w-md\">\n        <div className=\"relative w-full h-4 bg-gray-200 rounded-full mb-4\">\n          <div \n            className=\"absolute h-full bg-green-500 rounded-full transition-all duration-300\" \n            style={{ width: `${progress}%` }}\n          />\n        </div>\n        <p className=\"text-lg text-center text-green-600\">{progress}% of your goal achieved!</p>\n      </div>\n      <textarea \n        placeholder=\"Journaling about your journey...\" \n        className=\"w-full h-24 p-2 border border-green-400 rounded-md mt-6 resize-none focus:outline-none focus:ring focus:ring-green-600\"\n      />\n    </div>\n  );\n};\n\nexport default FitnessMoodAsset;",
-      "createdAt": "2025-12-19T15:10:48.346Z",
-      "updatedAt": "2025-12-19T15:10:48.346Z",
-      "intentId": "8ef22841-cce4-4b0d-958e-185f90e70b6e"
-    },
-    {
-      "id": "8903f2f4-4062-4b14-a508-fa48b99761ff",
-      "type": "decision",
-      "title": "fitness",
-      "content": "jourtney",
-      "createdAt": "2025-12-19T15:11:00.790Z",
-      "updatedAt": "2025-12-19T15:11:00.790Z",
-      "intentId": "8ef22841-cce4-4b0d-958e-185f90e70b6e"
-    },
-    {
-      "id": "fbdebcf7-c704-47fd-9055-1c39a6f9080a",
-      "type": "constraint",
-      "title": "fitness ",
-      "content": "journey",
-      "createdAt": "2025-12-19T15:11:10.759Z",
-      "updatedAt": "2025-12-19T15:11:10.759Z",
-      "intentId": "8ef22841-cce4-4b0d-958e-185f90e70b6e"
-    },
-    {
-      "id": "07f3b59e-4015-409f-b269-370043c378b9",
-      "type": "preference",
-      "title": "fitness",
-      "content": "journey",
-      "createdAt": "2025-12-19T15:11:22.900Z",
-      "updatedAt": "2025-12-19T15:11:22.900Z",
-      "intentId": "8ef22841-cce4-4b0d-958e-185f90e70b6e"
-    },
-    {
-      "id": "aeff6c6f-37d1-42a7-9da4-ab2352ecd6c8",
-      "type": "moodAsset",
-      "title": "Mood Asset: i want to track my running",
-      "content": "import React, { useState } from 'react';\n\nconst FitnessMoodAsset = () => {\n  const [goal, setGoal] = useState('');\n  const [progress, setProgress] = useState(0);\n  const [todos, setTodos] = useState(['Run 3 times a week', 'Drink at least 2 liters of water', 'Get 7-8 hours of sleep', 'Eat fruits and vegetables']);\n  const [completedTodos, setCompletedTodos] = useState(new Array(todos.length).fill(false));\n\n  const toggleTodo = (index) => {\n    const updatedTodos = [...completedTodos];\n    updatedTodos[index] = !updatedTodos[index];\n    setCompletedTodos(updatedTodos);\n  };\n\n  return (\n    <div className=\"w-full h-full flex flex-col items-center justify-center p-8 bg-green-100 rounded-lg shadow-lg\">\n      <h1 className=\"text-3xl font-bold text-green-700 mb-4\">🏋️‍♂️ Fitness Planner</h1>\n      <div className=\"flex items-center mb-6\">\n        <input \n          type=\"text\" \n          placeholder=\"Set your fitness goal...\" \n          value={goal} \n          onChange={(e) => setGoal(e.target.value)} \n          className=\"border border-green-400 p-2 rounded-md mr-2 focus:outline-none focus:ring focus:ring-green-600\"\n        />\n        <button \n          onClick={() => setProgress(progress + 10)}\n          className=\"bg-green-600 text-white p-2 rounded-md hover:bg-green-500 transition\"\n        >\n          Add Progress\n        </button>\n      </div>\n      <div className=\"w-full max-w-md\">\n        <div className=\"relative w-full h-4 bg-gray-200 rounded-full mb-4\">\n          <div \n            className=\"absolute h-full bg-green-500 rounded-full transition-all duration-300\" \n            style={{ width: `${progress}%` }}\n          />\n        </div>\n        <p className=\"text-lg text-center text-green-600\">{progress}% of your goal achieved!</p>\n      </div>\n      <textarea \n        placeholder=\"Journaling about your journey...\" \n        className=\"w-full h-24 p-2 border border-green-400 rounded-md mt-6 resize-none focus:outline-none focus:ring focus:ring-green-600\"\n      />\n      <div className=\"w-full mt-6\">\n        <h2 className=\"text-2xl font-semibold text-green-700 mb-2\">🏃‍♂️ To-Do List</h2>\n        <ul className=\"list-disc list-inside\">\n          {todos.map((todo, index) => (\n            <li key={index} className={`flex items-center mb-1 ${completedTodos[index] ? 'line-through text-gray-500' : 'text-green-700'}`}>\n              <input \n                type=\"checkbox\" \n                checked={completedTodos[index]} \n                onChange={() => toggleTodo(index)} \n                className=\"mr-2\"\n              />\n              {todo}\n            </li>\n          ))}\n        </ul>\n      </div>\n    </div>\n  );\n};\n\nexport default FitnessMoodAsset;",
-      "createdAt": "2025-12-19T15:22:49.794Z",
-      "updatedAt": "2025-12-19T15:22:49.794Z",
-      "intentId": "07f82805-40eb-4daa-a558-83f88a28e93c"
-    },
-    {
-      "id": "d15e1442-9750-496f-b7e6-eac86efcd5b6",
-      "type": "moodAsset",
-      "title": "Mood Asset: daily fitness tracker minimal",
-      "content": "import React, { useState, useEffect, useRef } from \"react\";\n\nexport default function FitnessMoodAsset() {\n  // Weekly goal in km (or units)\n  const [goal, setGoal] = useState(() => {\n    const saved = localStorage.getItem(\"fitness_goal_km\");\n    return saved ? Number(saved) : 20;\n  });\n\n  // Map of date (YYYY-MM-DD) -> km\n  const [runs, setRuns] = useState(() => {\n    try {\n      const raw = localStorage.getItem(\"fitness_runs_map\");\n      return raw ? JSON.parse(raw) : {};\n    } catch {\n      return {};\n    }\n  });\n\n  // Quick add input\n  const [addKm, setAddKm] = useState(\"\");\n\n  // Journal\n  const [journal, setJournal] = useState(() => {\n    return localStorage.getItem(\"fitness_journal\") || \"\";\n  });\n\n  // Quick habits\n  const initialHabits = [\n    { id: 1, label: \"Run / Walk\", key: \"habit_run\" },\n    { id: 2, label: \"Hydration 2L+\", key: \"habit_water\" },\n    { id: 3, label: \"Sleep 7-8h\", key: \"habit_sleep\" },\n  ];\n  const [habits, setHabits] = useState(() => {\n    try {\n      const raw = localStorage.getItem(\"fitness_habits\");\n      if (raw) return JSON.parse(raw);\n    } catch {}\n    // initialize from defaults as unchecked\n    return initialHabits.map((h) => ({ ...h, done: false }));\n  });\n\n  // floating confetti trigger for milestone\n  const [celebrate, setCelebrate] = useState(false);\n\n  // refs for animation timing\n  const celebrateTimeout = useRef(null);\n\n  useEffect(() => {\n    localStorage.setItem(\"fitness_goal_km\", String(goal));\n  }, [goal]);\n\n  useEffect(() => {\n    localStorage.setItem(\"fitness_runs_map\", JSON.stringify(runs));\n  }, [runs]);\n\n  useEffect(() => {\n    localStorage.setItem(\"fitness_journal\", journal);\n  }, [journal]);\n\n  useEffect(() => {\n    localStorage.setItem(\"fitness_habits\", JSON.stringify(habits));\n  }, [habits]);\n\n  // Helpers to format dates\n  const todayKey = (d = new Date()) => d.toISOString().slice(0, 10);\n\n  const lastNDates = (n = 7) => {\n    const arr = [];\n    for (let i = n - 1; i >= 0; i--) {\n      const d = new Date();\n      d.setDate(d.getDate() - i);\n      arr.push(d);\n    }\n    return arr;\n  };\n\n  // Weekly values for the last 7 days\n  const weekDates = lastNDates(7);\n  const weekValues = weekDates.map((d) => runs[d.toISOString().slice(0, 10)] || 0);\n  const totalThisWeek = weekValues.reduce((s, v) => s + v, 0);\n  const progressPct = Math.min(100, Math.round((totalThisWeek / Math.max(1, goal)) * 100));\n\n  // Add run for today\n  const handleAddRun = (e) => {\n    e?.preventDefault();\n    const km = parseFloat(addKm);\n    if (Number.isNaN(km) || km <= 0) return;\n    const key = todayKey();\n    setRuns((prev) => {\n      const next = { ...prev, [key]: (prev[key] || 0) + Number(km) };\n      return next;\n    });\n    setAddKm(\"\");\n    // celebrate if crossing milestone (>= goal)\n    const newTotal = totalThisWeek + km;\n    if (newTotal >= goal && totalThisWeek < goal) {\n      setCelebrate(true);\n      clearTimeout(celebrateTimeout.current);\n      celebrateTimeout.current = setTimeout(() => setCelebrate(false), 3500);\n    }\n  };\n\n  // Toggle habit\n  const toggleHabit = (id) => {\n    setHabits((h) => h.map((item) => (item.id === id ? { ...item, done: !item.done } : item)));\n  };\n\n  // Reset week (quick action)\n  const resetWeek = () => {\n    const newRuns = { ...runs };\n    weekDates.forEach((d) => {\n      const key = d.toISOString().slice(0, 10);\n      delete newRuns[key];\n    });\n    setRuns(newRuns);\n  };\n\n  // SVG circular progress calculations\n  const radius = 36;\n  const circumference = 2 * Math.PI * radius;\n  const strokeDashoffset = circumference - (progressPct / 100) * circumference;\n\n  // small accessibility helper for keyboard add\n  const addInputRef = useRef(null);\n\n  return (\n    <div className=\"w-full h-full p-6 bg-gradient-to-br from-emerald-50 via-emerald-100 to-white rounded-2xl shadow-inner overflow-hidden flex flex-col\">\n      <header className=\"flex items-center justify-between mb-4\">\n        <div className=\"flex items-center space-x-3\">\n          <div className=\"relative\">\n            <div className=\"w-14 h-14 rounded-full bg-emerald-600 flex items-center justify-center text-white text-2xl shadow-lg transform transition-transform duration-500 hover:scale-105\">\n              🏃‍♀️\n            </div>\n            {celebrate && (\n              <div className=\"absolute -top-2 -right-2 flex space-x-1\">\n                <span className=\"text-sm animate-bounce text-yellow-400\">✨</span>\n                <span className=\"text-sm animate-bounce text-pink-400\">🎉</span>\n              </div>\n            )}\n          </div>\n          <div>\n            <h1 className=\"text-2xl font-semibold text-emerald-800 leading-tight\">Daily Fitness Planner</h1>\n            <p className=\"text-sm text-emerald-600\">Set clear goals • Track runs • Reflect daily</p>\n          </div>\n        </div>\n\n        <div className=\"flex items-center space-x-3\">\n          <div className=\"text-right\">\n            <p className=\"text-xs text-emerald-500\">Weekly goal</p>\n            <div className=\"flex items-baseline space-x-2\">\n              <input\n                aria-label=\"Weekly goal in kilometers\"\n                type=\"number\"\n                min=\"1\"\n                value={goal}\n                onChange={(e) => setGoal(Math.max(1, Number(e.target.value || 0)))}\n                className=\"w-20 bg-white text-emerald-800 font-semibold px-2 py-1 rounded-md border border-emerald-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-300\"\n              />\n              <span className=\"text-xs text-emerald-600\">km / week</span>\n            </div>\n          </div>\n\n          <div className=\"w-20 h-20 flex items-center justify-center\">\n            <svg className=\"w-20 h-20 transform -rotate-90\" viewBox=\"0 0 80 80\">\n              <defs>\n                <linearGradient id=\"g1\" x1=\"0\" x2=\"1\">\n                  <stop offset=\"0%\" stopColor=\"#059669\" />\n                  <stop offset=\"100%\" stopColor=\"#10B981\" />\n                </linearGradient>\n              </defs>\n              <g>\n                <circle cx=\"40\" cy=\"40\" r={radius} stroke=\"#E6F4EE\" strokeWidth=\"8\" fill=\"none\" />\n                <circle\n                  cx=\"40\"\n                  cy=\"40\"\n                  r={radius}\n                  stroke=\"url(#g1)\"\n                  strokeWidth=\"8\"\n                  strokeLinecap=\"round\"\n                  fill=\"none\"\n                  strokeDasharray={circumference}\n                  strokeDashoffset={strokeDashoffset}\n                  style={{ transition: \"stroke-dashoffset 700ms cubic-bezier(.2,.9,.2,1)\" }}\n                />\n                <text x=\"40\" y=\"45\" textAnchor=\"middle\" className=\"text-sm\" style={{ fontSize: 12, fill: \"#065f46\", fontWeight: 700 }}>\n                  {progressPct}%\n                </text>\n              </g>\n            </svg>\n          </div>\n        </div>\n      </header>\n\n      <main className=\"flex-1 grid grid-cols-1 md:grid-cols-3 gap-4\">\n        {/* Left: Chart + summary */}\n        <section className=\"col-span-2 bg-white rounded-xl p-4 shadow-sm flex flex-col\">\n          <div className=\"flex items-center justify-between mb-3\">\n            <h2 className=\"text-lg font-medium text-emerald-700 flex items-center space-x-2\">\n              <span>Weekly Activity</span>\n              <span className=\"text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full\">last 7 days</span>\n            </h2>\n            <div className=\"text-sm text-emerald-600\">\n              <div>Total: <span className=\"font-semibold text-emerald-800\">{totalThisWeek} km</span></div>\n              <div className=\"text-xs\">Goal: {goal} km</div>\n            </div>\n          </div>\n\n          <div className=\"flex-1 flex flex-col md:flex-row md:items-end md:justify-between\">\n            {/* Bars */}\n            <div className=\"flex-1 flex items-end space-x-2 px-2 py-3\">\n              {weekValues.map((v, idx) => {\n                const max = Math.max(...weekValues, goal / 7, 1);\n                const heightPct = Math.min(100, Math.round((v / max) * 100));\n                const day = weekDates[idx].toLocaleDateString(undefined, { weekday: \"short\" }).slice(0, 3);\n                return (\n                  <div key={idx} className=\"flex-1 flex flex-col items-center\">\n                    <div\n                      className=\"w-full bg-emerald-100 rounded-t-md relative overflow-hidden transition-all duration-500\"\n                      style={{ height: `${Math.max(8, Math.round((heightPct / 100) * 160))}px` }}\n                      title={`${day}: ${v} km`}\n                    >\n                      <div className=\"absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs text-emerald-700 font-medium\">\n                        {v > 0 ? `${v} km` : \"\"}\n                      </div>\n                    </div>\n                    <div className=\"mt-2 text-xs text-emerald-500\">{day}</div>\n                  </div>\n                );\n              })}\n            </div>\n\n            {/* Quick add / actions */}\n            <div className=\"mt-4 md:mt-0 md:ml-6 w-full md:w-56 bg-emerald-50 border border-emerald-100 rounded-lg p-3 shadow-inner\">\n              <form onSubmit={handleAddRun} className=\"flex flex-col space-y-2\">\n                <label className=\"text-xs text-emerald-600 font-medium\">Quick Add Run</label>\n                <div className=\"flex items-center space-x-2\">\n                  <input\n                    ref={addInputRef}\n                    aria-label=\"Add kilometers\"\n                    type=\"number\"\n                    step=\"0.1\"\n                    min=\"0\"\n                    placeholder=\"e.g., 5.2\"\n                    value={addKm}\n                    onChange={(e) => setAddKm(e.target.value)}\n                    className=\"flex-1 px-2 py-2 rounded-md border border-emerald-200 focus:outline-none focus:ring-2 focus:ring-emerald-300 bg-white\"\n                  />\n                  <button\n                    type=\"submit\"\n                    onClick={handleAddRun}\n                    className=\"bg-emerald-600 text-white px-3 py-2 rounded-md hover:bg-emerald-500 transform transition duration-200 active:scale-95 flex items-center space-x-2\"\n                  >\n                    <span className=\"text-lg\">➕</span>\n                    <span className=\"text-sm font-medium\">Add</span>\n                  </button>\n                </div>\n                <div className=\"flex items-center justify-between text-xs text-emerald-500\">\n                  <button\n                    type=\"button\"\n                    onClick={() => {\n                      setAddKm(\"1\");\n                      addInputRef.current?.focus();\n                    }}\n                    className=\"px-2 py-1 rounded-md hover:bg-emerald-100\"\n                  >\n                    +1 km\n                  </button>\n                  <button\n                    type=\"button\"\n                    onClick={() => resetWeek()}\n                    className=\"px-2 py-1 rounded-md text-rose-600 hover:bg-rose-50\"\n                    title=\"Clear this week's entries\"\n                  >\n                    Reset week\n                  </button>\n                </div>\n              </form>\n            </div>\n          </div>\n        </section>\n\n        {/* Right: Journal + Habits */}\n        <aside className=\"col-span-1 flex flex-col space-y-4\">\n          <div className=\"bg-white rounded-xl p-3 shadow-sm flex flex-col\">\n            <div className=\"flex items-center justify-between mb-2\">\n              <h3 className=\"text-sm font-medium text-emerald-700\">Journal ✍️</h3>\n              <p className=\"text-xs text-emerald-500\">{new Date().toLocaleDateString()}</p>\n            </div>\n            <textarea\n              placeholder=\"Reflect on today's run or set a mini intention...\"\n              value={journal}\n              onChange={(e) => setJournal(e.target.value)}\n              className=\"w-full min-h-[120px] resize-none p-2 border border-emerald-100 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-200\"\n            />\n            <div className=\"mt-2 flex items-center justify-between\">\n              <div className=\"text-xs text-emerald-500\">\n                {journal.length} chars\n              </div>\n              <div className=\"flex items-center space-x-2\">\n                <button\n                  onClick={() => {\n                    setJournal(\"\");\n                  }}\n                  className=\"text-xs px-2 py-1 rounded-md hover:bg-emerald-50 text-rose-600\"\n                >\n                  Clear\n                </button>\n                <button\n                  onClick={() => {\n                    // small pulse animation\n                    setCelebrate(true);\n                    clearTimeout(celebrateTimeout.current);\n                    celebrateTimeout.current = setTimeout(() => setCelebrate(false), 900);\n                  }}\n                  className=\"bg-emerald-600 text-white text-xs px-3 py-1 rounded-md hover:bg-emerald-500\"\n                >\n                  Save Note\n                </button>\n              </div>\n            </div>\n          </div>\n\n          <div className=\"bg-white rounded-xl p-3 shadow-sm\">\n            <h4 className=\"text-sm font-medium text-emerald-700 mb-2\">Today's Habits</h4>\n            <ul className=\"space-y-2\">\n              {habits.map((h) => (\n                <li key={h.id} className=\"flex items-center justify-between\">\n                  <div className=\"flex items-center space-x-2\">\n                    <button\n                      onClick={() => toggleHabit(h.id)}\n                      className={`w-9 h-9 flex items-center justify-center rounded-md transition ${\n                        h.done ? \"bg-emerald-600 text-white\" : \"bg-emerald-50 text-emerald-600 border border-emerald-100\"\n                      }`}\n                      aria-pressed={h.done}\n                    >\n                      {h.done ? \"✓\" : \"○\"}\n                    </button>\n                    <span className={`text-sm ${h.done ? \"line-through text-emerald-400\" : \"text-emerald-700\"}`}>{h.label}</span>\n                  </div>\n                  <div className=\"text-xs text-emerald-500\">{h.done ? \"Done\" : \"Tap\"}</div>\n                </li>\n              ))}\n            </ul>\n            <div className=\"mt-3 text-xs text-emerald-500\">\n              Small wins add up — toggle a habit to celebrate momentum.\n            </div>\n          </div>\n        </aside>\n      </main>\n\n      <footer className=\"mt-4 flex items-center justify-between text-xs text-emerald-600\">\n        <div className=\"flex items-center space-x-3\">\n          <span className=\"px-2 py-1 bg-emerald-50 rounded-md\">✨ Keep it consistent</span>\n          <span className=\"px-2 py-1 bg-emerald-50 rounded-md\">🧭 Plan • Do • Reflect</span>\n        </div>\n        <div className=\"flex items-center space-x-3\">\n          <div className=\"text-emerald-500\">Need a nudge? Try a 10-min run today</div>\n          <button\n            onClick={() => {\n              // add small 1 km as nudge\n              setRuns((prev) => {\n                const key = todayKey();\n                const next = { ...prev, [key]: (prev[key] || 0) + 1 };\n                return next;\n              });\n              setCelebrate(true);\n              clearTimeout(celebrateTimeout.current);\n              celebrateTimeout.current = setTimeout(() => setCelebrate(false), 1600);\n            }}\n            className=\"bg-emerald-600 text-white px-3 py-1 rounded-md hover:bg-emerald-500\"\n          >\n            Nudge +1 km\n          </button>\n        </div>\n      </footer>\n    </div>\n  );\n}",
-      "createdAt": "2025-12-19T16:48:14.623Z",
-      "updatedAt": "2025-12-19T16:48:14.623Z",
-      "intentId": "5ab82503-3608-4dff-9a63-393753c13969"
-    }
-  ],
+  "createdAt": "2025-12-20T12:16:56.483Z",
+  "updatedAt": "2025-12-20T12:16:56.483Z",
+  "intents": [],
+  "artifacts": [],
   "connectors": [
     {
-      "id": "conn-calendar",
+      "id": "conn-calendar-board-1766233016483",
       "type": "calendar",
       "name": "Calendar",
       "enabled": false,
-      "boardId": "board-1"
+      "boardId": "board-1766233016483"
     },
     {
-      "id": "conn-bank",
+      "id": "conn-bank-board-1766233016483",
       "type": "bank",
       "name": "Bank",
       "enabled": false,
-      "boardId": "board-1"
+      "boardId": "board-1766233016483"
     },
     {
-      "id": "conn-wearable",
+      "id": "conn-wearable-board-1766233016483",
       "type": "wearable",
       "name": "Wearable",
       "enabled": false,
-      "boardId": "board-1"
+      "boardId": "board-1766233016483"
     },
     {
-      "id": "conn-docs",
+      "id": "conn-docs-board-1766233016483",
       "type": "docs",
       "name": "Documents",
       "enabled": false,
-      "boardId": "board-1"
+      "boardId": "board-1766233016483"
     }
   ]
 }

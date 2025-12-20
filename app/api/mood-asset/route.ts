@@ -59,6 +59,9 @@ Return ONLY the component code, no markdown, no explanations.`;
     let evaluations = [] as AgentResponse[];
     let allApproved = false;
     let promptAcc = moodPrompt;
+    const tokenUsageLog: Array<{ attempt: number; promptTokens: number; completionTokens: number; totalTokens: number }> = [];
+    let promptTokensTotal = 0;
+    let completionTokensTotal = 0;
 
     async function evaluate(code: string) {
       const [promptEval, uiEval, frontendEval, qaEval] = await Promise.all([
@@ -81,7 +84,7 @@ Return ONLY the component code, no markdown, no explanations.`;
         ? `${promptAcc}\n\nCurrent Component Code:\n${generatedCode}\n${revisionNotes}\nReturn ONLY the revised component code.`
         : promptAcc;
 
-      const { text } = await generateText({
+      const { text, usage } = await generateText({
         model: (openai as any)('gpt-5-mini', { reasoningEffort: 'low' }),
         system: 'You are a creative mood-driven component designer. Generate beautiful React components.',
         prompt: currentPrompt,
@@ -90,6 +93,18 @@ Return ONLY the component code, no markdown, no explanations.`;
             reasoningSummary: 'concise',
           },
         },
+      });
+
+      const promptTokens = usage?.promptTokens ?? 0;
+      const completionTokens = usage?.completionTokens ?? 0;
+      const totalTokens = usage?.totalTokens ?? promptTokens + completionTokens;
+      promptTokensTotal += promptTokens;
+      completionTokensTotal += completionTokens;
+      tokenUsageLog.push({
+        attempt: attempts + 1,
+        promptTokens,
+        completionTokens,
+        totalTokens,
       });
 
       generatedCode = text.trim();
@@ -105,6 +120,17 @@ Return ONLY the component code, no markdown, no explanations.`;
       promptAcc = `${promptAcc}\n\nCritical blockers to fix:\n${blockers}`;
       attempts += 1;
     }
+
+    console.log('[/api/mood-asset] Token usage', {
+      intent: moodContext.intentDescription,
+      domain: moodContext.domain,
+      approved: allApproved,
+      attempts: attempts + 1,
+      totalPromptTokens: promptTokensTotal,
+      totalCompletionTokens: completionTokensTotal,
+      totalTokens: promptTokensTotal + completionTokensTotal,
+      perAttempt: tokenUsageLog,
+    });
 
     return NextResponse.json({
       code: generatedCode,

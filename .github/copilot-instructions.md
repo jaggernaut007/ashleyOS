@@ -1,124 +1,15 @@
-# Copilot Instructions (Minimal)
+# Copilot Instructions
 
-- Project: Next.js (TypeScript) + Tailwind CSS
-- OS: macOS
-- Working directory: use '.'
-
-## Defaults
-- Keep responses concise and actionable.
-- Prefer minimal, focused code changes.
-- Use workspace tasks if available (e.g., `dev`).
-- Avoid installing extensions unless explicitly requested.
-- Reference files with workspace-relative links.
-
-## Checklist
-- [x] Verify this file exists in .github
-- [ ] Clarify ambiguous requirements before non-trivial work
-- [ ] Follow project style and conventions
-- [ ] Only run the app when requested or to verify changes
-- [ ] Keep generated components purposeful and lightweight
-<!-- Use this file to provide workspace-specific custom instructions to Copilot. For more details, visit https://code.visualstudio.com/docs/copilot/copilot-customization#_use-a-githubcopilotinstructionsmd-file -->
-- [ ] Verify that the copilot-instructions.md file in the .github directory is created.
-
-- [ ] Clarify Project Requirements
-	<!-- Ask for project type, language, and frameworks if not specified. Skip if already provided. -->
-
-- [ ] Scaffold the Project
-	<!--
-	Ensure that the previous step has been marked as completed.
-	Call project setup tool with projectType parameter.
-	Run scaffolding command to create project files and folders.
-	Use '.' as the working directory.
-	If no appropriate projectType is available, search documentation using available tools.
-	Otherwise, create the project structure manually using available file creation tools.
-	-->
-
-- [ ] Customize the Project
-	<!--
-	Verify that all previous steps have been completed successfully and you have marked the step as completed.
-	Develop a plan to modify codebase according to user requirements.
-	Apply modifications using appropriate tools and user-provided references.
-	Skip this step for "Hello World" projects.
-	-->
-
-- [ ] Install Required Extensions
-	<!-- ONLY install extensions provided mentioned in the get_project_setup_info. Skip this step otherwise and mark as completed. -->
-
-- [ ] Compile the Project
-	<!--
-	Verify that all previous steps have been completed.
-	Install any missing dependencies.
-	Run diagnostics and resolve any issues.
-	Check for markdown files in project folder for relevant instructions on how to do this.
-	-->
-
-- [ ] Create and Run Task
-	<!--
-	Verify that all previous steps have been completed.
-	Check https://code.visualstudio.com/docs/debugtest/tasks to determine if the project needs a task. If so, use the create_and_run_task to create and launch a task based on package.json, README.md, and project structure.
-	Skip this step otherwise.
-	 -->
-
-- [ ] Launch the Project
-	<!--
-	Verify that all previous steps have been completed.
-	Prompt user for debug mode, launch only if confirmed.
-	 -->
-
-- [ ] Ensure Documentation is Complete
-	<!--
-	Verify that all previous steps have been completed.
-	Verify that README.md and the copilot-instructions.md file in the .github directory exists and contains current project information.
-	Clean up the copilot-instructions.md file in the .github directory by removing all HTML comments.
-	 -->
-
-<!--
-## Execution Guidelines
-PROGRESS TRACKING:
-- If any tools are available to manage the above todo list, use it to track progress through this checklist.
-- After completing each step, mark it complete and add a summary.
-- Read current todo list status before starting each new step.
-
-COMMUNICATION RULES:
-- Avoid verbose explanations or printing full command outputs.
-- If a step is skipped, state that briefly (e.g. "No extensions needed").
-- Do not explain project structure unless asked.
-- Keep explanations concise and focused.
-
-DEVELOPMENT RULES:
-- Use '.' as the working directory unless user specifies otherwise.
-- Avoid adding media or external links unless explicitly requested.
-- Use placeholders only with a note that they should be replaced.
-- If the project setup information has additional rules, follow them strictly.
-- Once the project is created, it is already opened in Visual Studio Code—do not suggest commands to open this project in Visual Studio again.
-
-FOLDER CREATION RULES:
-- Always use the current directory as the project root.
-- If you are running any terminal commands, use the '.' argument to ensure that the current working directory is used ALWAYS.
-- Do not create a new folder unless the user explicitly requests it besides a .vscode folder for a tasks.json file.
-- If any of the scaffolding commands mention that the folder name is not correct, let the user know to create a new folder with the correct name and then reopen it again in vscode.
-
-EXTENSION INSTALLATION RULES:
-- Only install extension specified by the get_project_setup_info tool. DO NOT INSTALL any other extensions.
-
-PROJECT CONTENT RULES:
-- If the user has not specified project details, assume they want a "Hello World" project as a starting point.
-- Avoid adding links of any type (URLs, files, folders, etc.) or integrations that are not explicitly required.
-- Avoid generating images, videos, or any other media files unless explicitly requested.
-- If you need to use any media assets as placeholders, let the user know that these are placeholders and should be replaced with the actual assets later.
-- Ensure all generated components serve a clear purpose within the user's requested workflow.
-- If a feature is assumed but not confirmed, prompt the user for clarification before including it.
-- If you are working on a VS Code extension, use the VS Code API tool with a query to find relevant VS Code API references and samples related to that query.
-
-TASK COMPLETION RULES:
-- Your task is complete when:
-  - Project is successfully scaffolded and compiled without errors
-  - copilot-instructions.md file in the .github directory exists in the project
-  - README.md file exists and is up to date
-  - User is provided with clear instructions to debug/launch the project
-
-Before starting a new task in the above plan, update progress in the plan.
--->
-- Work through each checklist item systematically.
-- Keep communication concise and focused.
-- Follow development best practices.
+- Project: Next.js 15 App Router (TypeScript) + Tailwind; glassmorphic mood-board builder that renders AI-generated React components on a live canvas.
+- Dev workflow: npm install; npm run dev (VS Code task "dev" exists); npm run build; npm run start; npm run lint. Keep working directory at '.'.
+- Entry flow: app/page.tsx wires CodeProvider + SavedComponentProvider, a shared MessageBus, IntentConsole (left) → Canvas with DynamicCanvasRenderer, SaveMoodboard, and SavedMoodboardList.
+- Rendering: components/DynamicCanvasRenderer.tsx compiles user TSX with Babel; React is injected, imports are stripped, externals fetched from esm.sh and cached; __CANVAS_LIBS__ preloads lodash/dayjs/zod via app/PreloadLibs.tsx. Expect `export default function...`; components must fill the container.
+- Styling/themes: design tokens in lib/designLanguage.ts; prefer .panel-steel/.panel-steel-soft/.panel-frosted-glass, .button-steel, .input-steel, rounded-2xl/rounded-3xl, w-full h-full. Page sets data-theme="day" | "night"; keep contrast in both; glassmorphism + gradients are standard.
+- AI generation (chat sidebar): app/api/agent/route.ts (edge) runs a generator prompt that requires built-in data input paths (file upload + JSON textarea), empty/loading/error states, no external APIs/imports, w-full h-full. Multi-agent review uses lib/multiAgentOrchestrator.ts and agents in lib/agents.ts; Analytics/Marketing agents only added when the query mentions tracking/CTA keywords. Frontend wiring lives in components/ChatbotSidebar.tsx.
+- Intent pipeline (left panel): components/IntentConsole.tsx creates intents via /api/board, gathers connector summaries from lib/connectors.ts, fetches RAG context via /api/board/search (lib/vectorIndex.ts), assesses via /api/intent, then generates mood assets through /api/mood-asset (agent-reviewed). MessageBus topics: codegen:complete | codegen:error (canvas + UI react to these).
+- Persistence: lib/boardStore.ts stores board/intents/artifacts/connectors in .data/board.json (Node runtime). Artifacts are created via /api/board/artifact; mood assets are saved by components/SaveMoodboard.tsx and listed in components/SavedMoodboardList.tsx. Connector toggles live at /api/board/connector; file uploads to /api/board/upload are kept in-memory and indexed for search.
+- Search/RAG: lib/vectorIndex.ts maintains a TF-IDF index for artifacts/files; /api/board/search rebuilds the index per request.
+- State/context: code shared via context/CodeContext.tsx; loaded component name via context/SavedComponentContext.tsx; local saved snippets handled by lib/useSavedComponents.ts + components/SavedComponentsPanel.tsx.
+- UI expectations for generated components: self-contained, no third-party imports, w-full h-full, accessible focus + keyboard navigation, clear empty/loading/error states, built-in data entry (CSV/JSON upload plus textarea), avoid hardcoded domain data, prefer the Tailwind classes above, keep effects performance-friendly.
+- Operational constraints: /api/agent runs runtime='edge' (no Node fs); other board routes assume Node (fs-backed). Avoid writing files from edge paths and preserve helpful orchestration logs.
+- Useful references: Canvas rendering [components/Canvas.tsx](components/Canvas.tsx), orchestrator [lib/multiAgentOrchestrator.ts](lib/multiAgentOrchestrator.ts), design language [lib/designLanguage.ts](lib/designLanguage.ts).

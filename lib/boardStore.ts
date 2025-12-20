@@ -12,6 +12,50 @@ import {
   UploadedFile,
 } from "@/types/board";
 
+// Create a new blank board with default connectors
+function createNewBoard(title?: string, description?: string): Board {
+  const boardId = `board-${Date.now()}`;
+  return {
+    id: boardId,
+    title: title || "My Life Board",
+    description: description || "Personal decision and goal tracking",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    intents: [],
+    artifacts: [],
+    connectors: [
+      {
+        id: `conn-calendar-${boardId}`,
+        type: "calendar",
+        name: "Calendar",
+        enabled: false,
+        boardId,
+      },
+      {
+        id: `conn-bank-${boardId}`,
+        type: "bank",
+        name: "Bank",
+        enabled: false,
+        boardId,
+      },
+      {
+        id: `conn-wearable-${boardId}`,
+        type: "wearable",
+        name: "Wearable",
+        enabled: false,
+        boardId,
+      },
+      {
+        id: `conn-docs-${boardId}`,
+        type: "docs",
+        name: "Documents",
+        enabled: false,
+        boardId,
+      },
+    ],
+  };
+}
+
 const DATA_DIR = path.join(process.cwd(), ".data");
 const BOARD_FILE = path.join(DATA_DIR, "board.json");
 
@@ -35,47 +79,7 @@ function loadBoard(): Board {
     }
   }
 
-  // Create default board
-  const defaultBoard: Board = {
-    id: "board-1",
-    title: "My Life Board",
-    description: "Personal decision and goal tracking",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    intents: [],
-    artifacts: [],
-    connectors: [
-      {
-        id: "conn-calendar",
-        type: "calendar",
-        name: "Calendar",
-        enabled: false,
-        boardId: "board-1",
-      },
-      {
-        id: "conn-bank",
-        type: "bank",
-        name: "Bank",
-        enabled: false,
-        boardId: "board-1",
-      },
-      {
-        id: "conn-wearable",
-        type: "wearable",
-        name: "Wearable",
-        enabled: false,
-        boardId: "board-1",
-      },
-      {
-        id: "conn-docs",
-        type: "docs",
-        name: "Documents",
-        enabled: false,
-        boardId: "board-1",
-      },
-    ],
-  };
-
+  const defaultBoard = createNewBoard();
   saveBoard(defaultBoard);
   return defaultBoard;
 }
@@ -289,5 +293,14 @@ export const boardStore = {
 
   clearAllUploadedFiles: (): void => {
     uploadedFiles.clear();
+  },
+
+  // Reset the entire board to a fresh state
+  resetBoard: (title?: string, description?: string): Board => {
+    const freshBoard = createNewBoard(title, description);
+    currentBoard = freshBoard;
+    uploadedFiles.clear();
+    saveBoard(freshBoard);
+    return freshBoard;
   },
 };

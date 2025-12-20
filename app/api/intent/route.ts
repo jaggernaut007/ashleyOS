@@ -59,10 +59,18 @@ export async function POST(request: NextRequest) {
       body.domain
     );
 
-    const { text } = await generateText({
+    const { text, usage } = await generateText({
       model: openai("gpt-4o-mini"),
       system: `You are a ${body.domain}-focused intent reasoning agent. Return ONLY valid JSON, no markdown or code blocks.`,
       prompt,
+    });
+
+    console.log("[/api/intent] Token usage", {
+      domain: body.domain,
+      intent: body.intentDescription,
+      promptTokens: usage?.promptTokens ?? 0,
+      completionTokens: usage?.completionTokens ?? 0,
+      totalTokens: usage?.totalTokens ?? (usage?.promptTokens ?? 0) + (usage?.completionTokens ?? 0),
     });
 
     // Extract JSON from response

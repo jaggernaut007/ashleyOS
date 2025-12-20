@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
       type: file.type,
       content,
       uploadedAt: new Date(),
-      boardId: "board-1",
+      boardId: boardStore.getBoard().id,
     };
 
     // Store file

@@ -241,14 +241,29 @@ export default function IntentConsole({
     }
   }, [generateAndPublishMoodAsset, lastMoodContext, refineText]);
 
+  
+
   return (
     <div className="relative panel-frosted-glass flex flex-col gap-5 p-6 h-full text-slate-50">
-      <div className="relative flex flex-col gap-2 z-10">
-        <h2 className="text-xl font-semibold tracking-tight text-slate-100">Intent Console</h2>
-        <p className="text-sm text-slate-300">
-          Share what&apos;s on your mind. I&apos;ll assess your intent and help you
-          explore options.
-        </p>
+      {isLoading && (
+        <div className="absolute inset-0 z-20 flex items-center justify-center rounded-3xl bg-slate-900/50 backdrop-blur-sm border border-white/10">
+          <div className="flex flex-col items-center gap-3 text-slate-100">
+            <div className="relative flex items-center justify-center">
+              <div className="w-14 h-14 rounded-full border-4 border-white/15 border-t-white animate-spin" aria-hidden />
+              <div className="absolute w-6 h-6 rounded-full bg-white/70 blur-md" aria-hidden />
+            </div>
+            <div className="text-sm font-semibold tracking-tight">Assessing intent and generating mood asset…</div>
+            <div className="text-xs text-slate-300">Connecting connectors, searching context, and running agents.</div>
+          </div>
+        </div>
+      )}
+      <div className="relative flex items-center justify-between gap-4 z-10">
+        <div className="flex flex-col gap-2 min-w-0 flex-1">
+          <h2 className="text-xl font-semibold tracking-tight text-slate-100">Create Your Moodboard</h2>
+          <p className="text-sm text-slate-300">
+            Tell us what you&apos;re aiming for or feeling. We&apos;ll turn it into a vibrant, interactive moodboard.
+          </p>
+        </div>
       </div>
 
       <form onSubmit={handleSubmitIntent} className="relative flex flex-col gap-4 flex-1 z-10">
@@ -270,12 +285,12 @@ export default function IntentConsole({
         {/* Intent input */}
         <div className="flex flex-col gap-2 flex-1">
           <label className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-300">
-            Your Intent
+            What&apos;s Your Goal or Mood?
           </label>
           <textarea
             value={intentInput}
             onChange={(e) => setIntentInput(e.target.value)}
-            placeholder="Describe what you want to achieve, explore, or decide..."
+            placeholder="Describe what you want to achieve, explore, or feel—short and sweet is great."
             disabled={isLoading}
             className="input-steel flex-1 min-h-[180px] resize-none"
           />
@@ -303,7 +318,7 @@ export default function IntentConsole({
           disabled={isLoading || !intentInput.trim()}
           className="button-steel w-full justify-center py-3"
         >
-          {isLoading ? 'Processing...' : 'Submit Intent'}
+          {isLoading ? 'Creating...' : 'Create Moodboard'}
         </button>
       </form>
 

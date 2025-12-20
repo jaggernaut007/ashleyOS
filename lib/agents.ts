@@ -61,7 +61,7 @@ Respond ONLY in this JSON:
 }`,
 
   evaluate: async (userQuery: string, generatedCode: string): Promise<AgentResponse> => {
-    const { text } = await generateText({
+    const { text, usage } = await generateText({
       model: (openai as any)(CODING_MODEL, CODING_MODEL_OPTIONS),
       system: promptWriterAgent.systemPrompt,
       prompt: `User Request: "${userQuery}"
@@ -69,6 +69,13 @@ Generated (if any):
 ${generatedCode || 'None'}
 
 Craft the structured prompt as requested.`,
+    });
+
+    console.log('[agents:PromptWriter] Token usage', {
+      userQuery,
+      promptTokens: usage?.promptTokens ?? 0,
+      completionTokens: usage?.completionTokens ?? 0,
+      totalTokens: usage?.totalTokens ?? (usage?.promptTokens ?? 0) + (usage?.completionTokens ?? 0),
     });
 
     try {
@@ -123,10 +130,17 @@ Respond in JSON format:
 }`,
   
   evaluate: async (userQuery: string, generatedCode: string): Promise<AgentResponse> => {
-    const { text } = await generateText({
+    const { text, usage } = await generateText({
       model: (openai as any)(CODING_MODEL, CODING_MODEL_OPTIONS),
       system: uiUxAgent.systemPrompt,
       prompt: `User Request: "${userQuery}"\n\nGenerated Component:\n${generatedCode}\n\nEvaluate this component and respond ONLY with valid JSON in this exact format (no markdown, no code blocks):\n{\n  "approved": true,\n  "feedback": "your feedback",\n  "suggestions": ["suggestion 1"]\n}`,
+    });
+
+    console.log('[agents:UIUX] Token usage', {
+      userQuery,
+      promptTokens: usage?.promptTokens ?? 0,
+      completionTokens: usage?.completionTokens ?? 0,
+      totalTokens: usage?.totalTokens ?? (usage?.promptTokens ?? 0) + (usage?.completionTokens ?? 0),
     });
 
     try {
@@ -175,10 +189,17 @@ Respond in JSON format:
 }`,
   
   evaluate: async (userQuery: string, generatedCode: string): Promise<AgentResponse> => {
-    const { text } = await generateText({
+    const { text, usage } = await generateText({
       model: (openai as any)(CODING_MODEL, CODING_MODEL_OPTIONS),
       system: frontendAgent.systemPrompt,
       prompt: `User Request: "${userQuery}"\n\nGenerated Component:\n${generatedCode}\n\nEvaluate this component and respond ONLY with valid JSON in this exact format (no markdown, no code blocks):\n{\n  "approved": true,\n  "feedback": "your feedback",\n  "suggestions": ["suggestion 1"]\n}`,
+    });
+
+    console.log('[agents:Frontend] Token usage', {
+      userQuery,
+      promptTokens: usage?.promptTokens ?? 0,
+      completionTokens: usage?.completionTokens ?? 0,
+      totalTokens: usage?.totalTokens ?? (usage?.promptTokens ?? 0) + (usage?.completionTokens ?? 0),
     });
 
     try {
@@ -225,10 +246,17 @@ Respond in JSON format:
 }`,
   
   evaluate: async (userQuery: string, generatedCode: string): Promise<AgentResponse> => {
-    const { text } = await generateText({
+    const { text, usage } = await generateText({
       model: (openai as any)(CODING_MODEL, CODING_MODEL_OPTIONS),
       system: analyticsAgent.systemPrompt,
       prompt: `User Request: "${userQuery}"\n\nGenerated Component:\n${generatedCode}\n\nEvaluate this component and respond ONLY with valid JSON in this exact format (no markdown, no code blocks):\n{\n  "approved": true,\n  "feedback": "your feedback",\n  "suggestions": ["suggestion 1"]\n}`,
+    });
+
+    console.log('[agents:Analytics] Token usage', {
+      userQuery,
+      promptTokens: usage?.promptTokens ?? 0,
+      completionTokens: usage?.completionTokens ?? 0,
+      totalTokens: usage?.totalTokens ?? (usage?.promptTokens ?? 0) + (usage?.completionTokens ?? 0),
     });
 
     try {
@@ -276,10 +304,17 @@ Respond in JSON format:
 }`,
   
   evaluate: async (userQuery: string, generatedCode: string): Promise<AgentResponse> => {
-    const { text } = await generateText({
+    const { text, usage } = await generateText({
       model: (openai as any)(CODING_MODEL, CODING_MODEL_OPTIONS),
       system: marketingAgent.systemPrompt,
       prompt: `User Request: "${userQuery}"\n\nGenerated Component:\n${generatedCode}\n\nEvaluate this component and respond ONLY with valid JSON in this exact format (no markdown, no code blocks):\n{\n  "approved": true,\n  "feedback": "your feedback",\n  "suggestions": ["suggestion 1"]\n}`,
+    });
+
+    console.log('[agents:Marketing] Token usage', {
+      userQuery,
+      promptTokens: usage?.promptTokens ?? 0,
+      completionTokens: usage?.completionTokens ?? 0,
+      totalTokens: usage?.totalTokens ?? (usage?.promptTokens ?? 0) + (usage?.completionTokens ?? 0),
     });
 
     try {
@@ -336,10 +371,17 @@ Respond in JSON format:
 }`,
   
   evaluate: async (userQuery: string, generatedCode: string): Promise<AgentResponse> => {
-    const { text } = await generateText({
+    const { text, usage } = await generateText({
       model: (openai as any)(CODING_MODEL, CODING_MODEL_OPTIONS),
       system: qaAgent.systemPrompt,
       prompt: `User Request: "${userQuery}"\n\nGenerated Component:\n${generatedCode}\n\nEvaluate this component for QA standards and respond ONLY with valid JSON in this exact format (no markdown, no code blocks):\n{\n  "approved": true,\n  "feedback": "your feedback",\n  "suggestions": ["suggestion 1"]\n}`,
+    });
+
+    console.log('[agents:QA] Token usage', {
+      userQuery,
+      promptTokens: usage?.promptTokens ?? 0,
+      completionTokens: usage?.completionTokens ?? 0,
+      totalTokens: usage?.totalTokens ?? (usage?.promptTokens ?? 0) + (usage?.completionTokens ?? 0),
     });
 
     try {

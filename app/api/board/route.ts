@@ -31,9 +31,10 @@ export async function POST(request: NextRequest) {
 
     if (action === "createIntent") {
       const createReq = data as CreateIntentRequest;
+      const boardId = boardStore.getBoard().id;
       const intent: Intent = {
         id: uuidv4(),
-        boardId: "board-1",
+        boardId,
         title: createReq.title,
         description: createReq.description,
         domain: createReq.domain,
@@ -61,6 +62,13 @@ export async function POST(request: NextRequest) {
       const { intentId } = data;
       boardStore.deleteIntent(intentId);
       return NextResponse.json({ success: true });
+    }
+
+    if (action === "resetBoard") {
+      const { title, description } = data || {};
+      const freshBoard = boardStore.resetBoard(title, description);
+      vectorIndex.clear();
+      return NextResponse.json({ board: freshBoard });
     }
 
     return NextResponse.json(

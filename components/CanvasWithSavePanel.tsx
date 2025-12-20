@@ -12,6 +12,7 @@ export default function CanvasWithSavePanel() {
   const { saveComponent } = useSavedComponents();
   const { loadComponent } = useSavedComponentContext();
   const [showSaved, setShowSaved] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
 
   const handleSave = () => {
     if (code.trim()) {
@@ -26,6 +27,31 @@ export default function CanvasWithSavePanel() {
     setCode(component.code);
     loadComponent(component.name);
     setShowSaved(false);
+  };
+
+  const handleNewBoard = async () => {
+    if (isResetting) return;
+    const confirmed = window.confirm('Start a new board? This will clear current intents and artifacts.');
+    if (!confirmed) return;
+
+    try {
+      setIsResetting(true);
+      const res = await fetch('/api/board', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'resetBoard', data: {} }),
+      });
+      if (!res.ok) throw new Error('Failed to create new board');
+      // Clear canvas content and hide saved panel
+      setCode('');
+      setShowSaved(false);
+      alert('New board created ✨');
+    } catch (err) {
+      console.error('Error resetting board:', err);
+      alert('Could not create a new board. Please try again.');
+    } finally {
+      setIsResetting(false);
+    }
   };
 
   return (
@@ -50,6 +76,15 @@ export default function CanvasWithSavePanel() {
           title="View your saved mood creations"
         >
           📋 {showSaved ? 'Hide' : 'Show'} Board
+        </button>
+
+        <button
+          onClick={handleNewBoard}
+          className="glass-button-secondary"
+          title="Start a new board"
+          disabled={isResetting}
+        >
+          {isResetting ? 'Creating…' : '✨ New Board'}
         </button>
       </div>
 
