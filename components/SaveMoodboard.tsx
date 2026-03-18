@@ -8,7 +8,7 @@ interface SaveMoodboardProps {
   componentCode: string;
   intentId: string;
   intentDescription: string;
-  domain: string;
+  domain?: string;
   onSave?: (moodAsset: MoodAsset) => void;
   disabled?: boolean;
 }
@@ -47,8 +47,8 @@ export default function SaveMoodboard({
         generatedAt: new Date(),
         intentId,
         metadata: {
-          domain,
           intentDescription,
+          domain,
         },
       };
 
@@ -64,8 +64,8 @@ export default function SaveMoodboard({
             content: componentCode,
             intentId,
             metadata: {
-              domain,
               intentDescription,
+              domain,
             },
           },
         }),

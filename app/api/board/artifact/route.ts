@@ -25,6 +25,7 @@ export async function POST(request: NextRequest) {
         createdAt: new Date(),
         updatedAt: new Date(),
         intentId: createReq.intentId,
+        ...(createReq.metadata ? { metadata: createReq.metadata } : {}),
       };
 
       const created = boardStore.createArtifact(artifact);

@@ -9,6 +9,7 @@ import {
 } from '@/lib/agents';
 import { AgentResponse } from '@/lib/messageBus';
 import { MoodAssetContext } from '@/lib/agents';
+import { CODING_MODEL, CODING_MODEL_OPTIONS, summarizeUsage } from '@/lib/aiConfig';
 
 export async function POST(request: NextRequest) {
   try {
@@ -30,7 +31,6 @@ export async function POST(request: NextRequest) {
     const moodPrompt = `You are a React component generator. Create a mood asset component that reflects the user's life intent.
 
 INTENT: ${moodContext.intentDescription}
-DOMAIN: ${moodContext.domain}
 GUIDANCE: ${moodContext.guidance}
 UI TYPE: ${moodContext.uiType}
 ${refinementText ? `REFINEMENT REQUEST: ${refinementText}` : ''}
@@ -59,9 +59,16 @@ Return ONLY the component code, no markdown, no explanations.`;
     let evaluations = [] as AgentResponse[];
     let allApproved = false;
     let promptAcc = moodPrompt;
-    const tokenUsageLog: Array<{ attempt: number; promptTokens: number; completionTokens: number; totalTokens: number }> = [];
-    let promptTokensTotal = 0;
-    let completionTokensTotal = 0;
+    const tokenUsageLog: Array<{
+      attempt: number;
+      inputTokens: number;
+      outputTokens: number;
+      totalTokens: number;
+      reasoningTokens: number;
+      cachedInputTokens: number;
+    }> = [];
+    let inputTokensTotal = 0;
+    let outputTokensTotal = 0;
 
     async function evaluate(code: string) {
       const [promptEval, uiEval, frontendEval, qaEval] = await Promise.all([
@@ -85,7 +92,7 @@ Return ONLY the component code, no markdown, no explanations.`;
         : promptAcc;
 
       const { text, usage } = await generateText({
-        model: (openai as any)('gpt-5-mini', { reasoningEffort: 'low' }),
+        model: (openai as any)(CODING_MODEL, CODING_MODEL_OPTIONS),
         system: 'You are a creative mood-driven component designer. Generate beautiful React components.',
         prompt: currentPrompt,
         providerOptions: {
@@ -95,16 +102,12 @@ Return ONLY the component code, no markdown, no explanations.`;
         },
       });
 
-      const promptTokens = usage?.promptTokens ?? 0;
-      const completionTokens = usage?.completionTokens ?? 0;
-      const totalTokens = usage?.totalTokens ?? promptTokens + completionTokens;
-      promptTokensTotal += promptTokens;
-      completionTokensTotal += completionTokens;
+      const usageSummary = summarizeUsage(usage);
+      inputTokensTotal += usageSummary.inputTokens;
+      outputTokensTotal += usageSummary.outputTokens;
       tokenUsageLog.push({
         attempt: attempts + 1,
-        promptTokens,
-        completionTokens,
-        totalTokens,
+        ...usageSummary,
       });
 
       generatedCode = text.trim();
@@ -123,12 +126,11 @@ Return ONLY the component code, no markdown, no explanations.`;
 
     console.log('[/api/mood-asset] Token usage', {
       intent: moodContext.intentDescription,
-      domain: moodContext.domain,
       approved: allApproved,
       attempts: attempts + 1,
-      totalPromptTokens: promptTokensTotal,
-      totalCompletionTokens: completionTokensTotal,
-      totalTokens: promptTokensTotal + completionTokensTotal,
+      totalInputTokens: inputTokensTotal,
+      totalOutputTokens: outputTokensTotal,
+      totalTokens: inputTokensTotal + outputTokensTotal,
       perAttempt: tokenUsageLog,
     });
 
@@ -136,7 +138,7 @@ Return ONLY the component code, no markdown, no explanations.`;
       code: generatedCode,
       approved: allApproved,
       evaluations,
-      mood: moodContext.domain,
+      mood: 'generated',
     });
   } catch (error) {
     console.error('[/api/mood-asset] Error:', error);

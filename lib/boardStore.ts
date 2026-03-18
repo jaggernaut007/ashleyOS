@@ -1,5 +1,7 @@
 /**
- * In-memory board store with file-based persistence
+ * Board store with deploy-safe persistence behavior.
+ * - Local development defaults to file persistence in `.data/board.json`
+ * - Hosted production defaults to in-memory storage unless explicitly overridden
  */
 
 import * as fs from "fs";
@@ -11,6 +13,8 @@ import {
   Connector,
   UploadedFile,
 } from "@/types/board";
+
+type BoardStorageMode = "file" | "memory";
 
 // Create a new blank board with default connectors
 function createNewBoard(title?: string, description?: string): Board {
@@ -58,9 +62,41 @@ function createNewBoard(title?: string, description?: string): Board {
 
 const DATA_DIR = path.join(process.cwd(), ".data");
 const BOARD_FILE = path.join(DATA_DIR, "board.json");
+let warnedAboutMemoryMode = false;
+
+function getBoardStorageMode(): BoardStorageMode {
+  const envMode = process.env.BOARD_STORAGE_MODE?.trim().toLowerCase();
+
+  if (envMode === "file" || envMode === "memory") {
+    return envMode;
+  }
+
+  if (process.env.VERCEL || process.env.NODE_ENV === "production") {
+    return "memory";
+  }
+
+  return "file";
+}
+
+function usingFileStorage() {
+  return getBoardStorageMode() === "file";
+}
+
+function logMemoryModeOnce() {
+  if (!warnedAboutMemoryMode) {
+    warnedAboutMemoryMode = true;
+    console.warn(
+      "[boardStore] BOARD_STORAGE_MODE=memory. Board data is ephemeral in this runtime."
+    );
+  }
+}
 
 // Ensure .data directory exists
 function ensureDataDir() {
+  if (!usingFileStorage()) {
+    return;
+  }
+
   if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
   }
@@ -68,6 +104,11 @@ function ensureDataDir() {
 
 // Load board from file or create default
 function loadBoard(): Board {
+  if (!usingFileStorage()) {
+    logMemoryModeOnce();
+    return createNewBoard();
+  }
+
   ensureDataDir();
 
   if (fs.existsSync(BOARD_FILE)) {
@@ -86,6 +127,12 @@ function loadBoard(): Board {
 
 // Save board to file
 function saveBoard(board: Board) {
+  if (!usingFileStorage()) {
+    currentBoard = board;
+    logMemoryModeOnce();
+    return;
+  }
+
   ensureDataDir();
   fs.writeFileSync(BOARD_FILE, JSON.stringify(board, null, 2));
 }

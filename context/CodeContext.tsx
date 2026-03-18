@@ -2,18 +2,53 @@
 
 import React, { createContext, useContext, useState } from 'react';
 
+export type SegmentId = 1 | 2 | 3 | 4;
+
+interface SegmentCode {
+  1: string;
+  2: string;
+  3: string;
+  4: string;
+}
+
 interface CodeContextType {
-  code: string;
-  setCode: (code: string) => void;
+  code: string; // deprecated - for backward compatibility
+  setCode: (code: string) => void; // deprecated - for backward compatibility
+  segments: SegmentCode;
+  setSegmentCode: (segmentId: SegmentId, code: string) => void;
+  activeSegment: SegmentId;
+  setActiveSegment: (segmentId: SegmentId) => void;
 }
 
 const CodeContext = createContext<CodeContextType | undefined>(undefined);
 
 export function CodeProvider({ children }: { children: React.ReactNode }) {
-  const [code, setCode] = useState('');
+  const [segments, setSegments] = useState<SegmentCode>({
+    1: '',
+    2: '',
+    3: '',
+    4: '',
+  });
+  const [activeSegment, setActiveSegment] = useState<SegmentId>(1);
+
+  const setSegmentCode = (segmentId: SegmentId, code: string) => {
+    setSegments(prev => ({ ...prev, [segmentId]: code }));
+  };
+
+  // Backward compatibility
+  const setCode = (code: string) => {
+    setSegmentCode(activeSegment, code);
+  };
 
   return (
-    <CodeContext.Provider value={{ code, setCode }}>
+    <CodeContext.Provider value={{ 
+      code: segments[activeSegment], // backward compatibility
+      setCode,
+      segments,
+      setSegmentCode,
+      activeSegment,
+      setActiveSegment
+    }}>
       {children}
     </CodeContext.Provider>
   );

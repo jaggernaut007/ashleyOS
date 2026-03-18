@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { generateText } from 'ai';
 import { openai } from '@ai-sdk/openai';
 import { MultiAgentOrchestrator } from '@/lib/multiAgentOrchestrator';
+import { CODING_MODEL, CODING_MODEL_OPTIONS, summarizeUsage } from '@/lib/aiConfig';
 
 export const runtime = 'edge';
 
@@ -123,7 +124,7 @@ Design Guidance (Minimal Mode):
 
     // Step 1: Generate or improve component code using primary generator
     const { text: generatedCode, usage: generatorUsage } = await generateText({
-      model: openai('gpt-4o-mini'),
+      model: (openai as any)(CODING_MODEL, CODING_MODEL_OPTIONS),
       system: systemPrompt,
       messages: currentComponentCode 
         ? [{ role: 'user', content: userQuery }] 
@@ -132,9 +133,7 @@ Design Guidance (Minimal Mode):
 
     console.log('[/api/agent] Token usage (generator)', {
       userQuery,
-      promptTokens: generatorUsage?.promptTokens ?? 0,
-      completionTokens: generatorUsage?.completionTokens ?? 0,
-      totalTokens: generatorUsage?.totalTokens ?? (generatorUsage?.promptTokens ?? 0) + (generatorUsage?.completionTokens ?? 0),
+      ...summarizeUsage(generatorUsage),
     });
 
     // Step 2: Determine which agents to use

@@ -11,6 +11,7 @@ export interface Artifact {
   createdAt: Date;
   updatedAt: Date;
   intentId?: string;
+  metadata?: Record<string, unknown>;
 }
 
 export interface Decision extends Artifact {
@@ -36,7 +37,6 @@ export interface MoodAsset extends Artifact {
   componentCode: string;
   generatedAt: Date;
   intentId: string;
-  metadata?: Record<string, unknown>;
 }
 
 export interface TaskUI extends Artifact {
@@ -52,8 +52,8 @@ export interface Intent {
   boardId: string;
   title: string;
   description: string;
+  domain?: string;
   status: "draft" | "active" | "resolved" | "archived";
-  domain: string; // e.g., "health", "finance", "goals"
   createdAt: Date;
   updatedAt: Date;
   artifacts: Artifact[];
@@ -98,7 +98,7 @@ export interface UploadedFile {
 export interface CreateIntentRequest {
   title: string;
   description: string;
-  domain: string;
+  domain?: string;
 }
 
 export interface CreateIntentResponse {

@@ -8,18 +8,13 @@ import { MessageBus } from "@/lib/messageBus";
 import { Artifact } from "@/types/board";
 import { generateText } from "ai";
 import { openai } from "@ai-sdk/openai";
+import { CODING_MODEL, CODING_MODEL_OPTIONS, summarizeUsage } from "@/lib/aiConfig";
 
 function logIntentUsage(agentName: string, intentDescription: string, domain: string, usage: any) {
-  const promptTokens = usage?.promptTokens ?? 0;
-  const completionTokens = usage?.completionTokens ?? 0;
-  const totalTokens = usage?.totalTokens ?? promptTokens + completionTokens;
-
   console.log(`[intentAgents:${agentName}] Token usage`, {
     intent: intentDescription,
     domain,
-    promptTokens,
-    completionTokens,
-    totalTokens,
+    ...summarizeUsage(usage),
   });
 }
 export interface IntentAssessment {
@@ -104,7 +99,7 @@ export function createIntentAgents(messageBus: MessageBus): IntentAgent[] {
 
           try {
             const { text, usage } = await generateText({
-              model: openai("gpt-4o-mini"),
+              model: (openai as any)(CODING_MODEL, CODING_MODEL_OPTIONS),
               system: "You are a health-focused intent reasoning agent. Return ONLY valid JSON, no markdown or code blocks.",
               prompt,
             });
@@ -183,7 +178,7 @@ export function createIntentAgents(messageBus: MessageBus): IntentAgent[] {
 
           try {
             const { text, usage } = await generateText({
-              model: openai("gpt-4o-mini"),
+              model: (openai as any)(CODING_MODEL, CODING_MODEL_OPTIONS),
               system: "You are a finance-focused intent reasoning agent. Return ONLY valid JSON, no markdown or code blocks.",
               prompt,
             });
@@ -259,7 +254,7 @@ export function createIntentAgents(messageBus: MessageBus): IntentAgent[] {
 
           try {
             const { text, usage } = await generateText({
-              model: openai("gpt-4o-mini"),
+              model: (openai as any)(CODING_MODEL, CODING_MODEL_OPTIONS),
               system: "You are a goals-focused intent reasoning agent. Return ONLY valid JSON, no markdown or code blocks.",
               prompt,
             });

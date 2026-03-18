@@ -47,6 +47,85 @@ npm run build
 npm start
 ```
 
+## Environment
+
+Copy `.env.example` to `.env.local` and set `OPENAI_API_KEY`.
+
+- `OPENAI_API_KEY`: required for AI routes
+- `BOARD_STORAGE_MODE=file|memory`: optional
+- Local development defaults to `file`
+- Hosted production defaults to `memory`
+
+## Deployment Notes
+
+- The app is deploy-safe on platforms like Vercel.
+- Board state is ephemeral in hosted production unless you replace the in-memory store with persistent storage.
+- Local development still persists the board to `.data/board.json`.
+- The included GCP path targets Cloud Run because this project uses dynamic API routes and server-side OpenAI calls.
+
+## GCP Deployment
+
+This repo now includes a Cloud Run deployment path for the landing page app.
+
+### What gets deployed
+
+- A standalone Next.js production server in a Docker container
+- A Cloud Build pipeline defined in `cloudbuild.yaml`
+- Shell scripts in `scripts/` to bootstrap GCP resources and deploy
+- Runtime secret injection from Secret Manager for `OPENAI_API_KEY`
+
+### Prerequisites
+
+- `gcloud` CLI authenticated to your GCP account
+- Docker available locally if you want to test the image with `npm run docker:build`
+- A GCP project with billing enabled
+
+### 1. Bootstrap GCP resources
+
+Set your project and optionally your OpenAI key in the shell:
+
+```bash
+export PROJECT_ID="your-gcp-project-id"
+export REGION="europe-west1"
+export REPOSITORY="ashley-os"
+export OPENAI_API_KEY="your-rotated-openai-key"
+npm run gcp:bootstrap
+```
+
+This enables the required APIs, creates the Artifact Registry repository if needed, and creates or updates the `OPENAI_API_KEY` secret.
+
+### 2. Deploy to Cloud Run
+
+```bash
+export PROJECT_ID="your-gcp-project-id"
+export REGION="europe-west1"
+export SERVICE="ashley-os-landing"
+export REPOSITORY="ashley-os"
+npm run gcp:deploy
+```
+
+The deployment pipeline will:
+
+- Build the container image
+- Push it to Artifact Registry
+- Deploy the app to Cloud Run
+- Set `NODE_ENV=production`
+- Force `BOARD_STORAGE_MODE=memory` for deploy-safe ephemeral storage
+- Mount `OPENAI_API_KEY` from Secret Manager
+
+### 3. Local production check
+
+```bash
+npm run build
+npm run docker:build
+```
+
+### Notes
+
+- Cloud Run is stateless. Saved board data resets across revisions and instance restarts while `BOARD_STORAGE_MODE=memory` is used.
+- If you need persistent board data in production, move `lib/boardStore.ts` to Firestore, Cloud SQL, or another durable store.
+- Do not deploy with the current `.env.local` key. Rotate it first and store the new value in Secret Manager.
+
 ## Project Structure (key files)
 
 ```

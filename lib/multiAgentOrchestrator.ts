@@ -7,6 +7,7 @@ import { MessageBus, AgentResponse } from './messageBus';
 import { allAgents, Agent } from './agents';
 import { generateText } from 'ai';
 import { openai } from '@ai-sdk/openai';
+import { CODING_MODEL, CODING_MODEL_OPTIONS } from './aiConfig';
 
 export interface OrchestrationResult {
   approved: boolean;
@@ -155,7 +156,7 @@ Suggestions: ${agentResponse.suggestions?.join(', ') || 'None'}
 Please provide the improved code. Return ONLY the fixed code without any explanation or markdown formatting.`;
 
     const { text } = await generateText({
-      model: openai('gpt-4o-mini'),
+      model: (openai as any)(CODING_MODEL, CODING_MODEL_OPTIONS),
       prompt: fixPrompt,
     });
 

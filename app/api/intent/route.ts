@@ -5,10 +5,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateText } from "ai";
 import { openai } from "@ai-sdk/openai";
+import { CODING_MODEL, summarizeUsage } from "@/lib/aiConfig";
 
 interface AssessIntentRequest {
   intentDescription: string;
-  domain: string;
+  domain?: string;
   boardContext: string;
   connectorSummaries: string;
 }
@@ -16,10 +17,9 @@ interface AssessIntentRequest {
 function createIntentAssessmentPrompt(
   intentDescription: string,
   boardContext: string,
-  connectorSummaries: string,
-  domain: string
+  connectorSummaries: string
 ): string {
-  return `You are a ${domain}-focused life reasoning agent. Your role is to assess user intent and determine if an interactive UI would help them better achieve their goal.
+  return `You are a life reasoning agent. Your role is to assess user intent and determine if an interactive UI would help them better achieve their goal.
 
 INTENT:
 ${intentDescription}
@@ -55,22 +55,17 @@ export async function POST(request: NextRequest) {
     const prompt = createIntentAssessmentPrompt(
       body.intentDescription,
       body.boardContext,
-      body.connectorSummaries,
-      body.domain
+      body.connectorSummaries
     );
-
     const { text, usage } = await generateText({
-      model: openai("gpt-4o-mini"),
-      system: `You are a ${body.domain}-focused intent reasoning agent. Return ONLY valid JSON, no markdown or code blocks.`,
+      model: openai(CODING_MODEL),
+      system: `You are an intent reasoning agent. Return ONLY valid JSON, no markdown or code blocks.`,
       prompt,
     });
 
     console.log("[/api/intent] Token usage", {
-      domain: body.domain,
       intent: body.intentDescription,
-      promptTokens: usage?.promptTokens ?? 0,
-      completionTokens: usage?.completionTokens ?? 0,
-      totalTokens: usage?.totalTokens ?? (usage?.promptTokens ?? 0) + (usage?.completionTokens ?? 0),
+      ...summarizeUsage(usage),
     });
 
     // Extract JSON from response

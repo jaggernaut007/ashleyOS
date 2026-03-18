@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "docker:build": "docker build -t ashley-os:local .",
+    "gcp:bootstrap": "bash scripts/bootstrap-gcp.sh",
+    "gcp:deploy": "bash scripts/deploy-gcp.sh"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.88",

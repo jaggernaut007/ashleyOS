@@ -16,9 +16,9 @@ import { Artifact } from '@/types/board';
 const messageBus = new MessageBus();
 
 function HomeContent() {
-  const { code, setCode } = useCode();
+  const { code, setCode, activeSegment, setActiveSegment } = useCode();
   const [currentIntent, setCurrentIntent] = useState<Intent | null>(null);
-  const [theme, setTheme] = useState<'day' | 'night'>('day');
+  const [theme, setTheme] = useState<'day' | 'night'>('night');
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
   const [isResettingBoard, setIsResettingBoard] = useState(false);
   const isNight = theme === 'night';
@@ -95,7 +95,16 @@ function HomeContent() {
       {/* Canvas - Center */}
       <section className="order-1 lg:order-2 h-full p-6 flex flex-col gap-4 overflow-hidden">
         <div className={`flex items-center justify-between transition-colors duration-500 ${isNight ? 'text-slate-100' : 'text-slate-800'}`}>
-          <span className={`text-sm font-semibold tracking-tight uppercase transition-colors duration-500 ${isNight ? 'text-slate-200' : 'text-slate-700'}`}>Mood Board</span>
+          <div className="flex items-center gap-3">
+            <span className={`text-lg font-bold tracking-tight transition-colors duration-500 ${isNight ? 'text-slate-100' : 'text-slate-800'}`}>Mood Board Canvas</span>
+            <div className={`px-3 py-1 rounded-lg text-xs font-semibold ${
+              isNight 
+                ? 'bg-cyan-400/20 text-cyan-300 border border-cyan-400/40'
+                : 'bg-orange-500/20 text-orange-600 border border-orange-500/40'
+            }`}>
+              Active: Segment {activeSegment}
+            </div>
+          </div>
           <div className="flex items-center gap-2">
             {code && currentIntent && (
               <SaveMoodboard
@@ -147,7 +156,7 @@ function HomeContent() {
               ? 'from-violet-500/10 via-blue-500/5 to-transparent' 
               : 'from-orange-400/10 via-yellow-400/5 to-transparent'
           }`} />
-          <Canvas code={code} theme={theme} />
+          <Canvas theme={theme} />
         </div>
 
         {/* Mobile / Tablet save strip */}
@@ -177,7 +186,6 @@ function HomeContent() {
                 componentCode={code}
                 intentId={currentIntent.id}
                 intentDescription={currentIntent.description}
-                domain={currentIntent.domain}
                 disabled={!code?.trim()}
               />
             </div>

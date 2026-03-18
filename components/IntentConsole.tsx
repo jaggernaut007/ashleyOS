@@ -5,6 +5,7 @@ import { MessageBus } from '@/lib/messageBus';
 import { loadConnectorSummaries } from '@/lib/connectors';
 import { MoodAssetContext } from '@/lib/agents';
 import { Board, Intent } from '@/types/board';
+import { useCode } from '@/context/CodeContext';
 
 interface IntentConsoleProps {
   messageBus: MessageBus;
@@ -17,8 +18,9 @@ export default function IntentConsole({
   onMoodAssetGenerated,
   onIntentCreated,
 }: IntentConsoleProps) {
+  const { activeSegment, setActiveSegment } = useCode();
+  const selectedDomain = `segment-${activeSegment}`;
   const [intentInput, setIntentInput] = useState('');
-  const [selectedDomain, setSelectedDomain] = useState('health');
   const [isLoading, setIsLoading] = useState(false);
   const [boardData, setBoardData] = useState<Board | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
@@ -205,7 +207,7 @@ export default function IntentConsole({
         setIsLoading(false);
       }
     },
-    [intentInput, selectedDomain, boardData, onIntentCreated, generateAndPublishMoodAsset]
+    [intentInput, boardData, onIntentCreated, generateAndPublishMoodAsset, selectedDomain]
   );
 
   const handleRefine = useCallback(async () => {
@@ -257,42 +259,43 @@ export default function IntentConsole({
           </div>
         </div>
       )}
-      <div className="relative flex items-center justify-between gap-4 z-10">
-        <div className="flex flex-col gap-2 min-w-0 flex-1">
-          <h2 className="text-xl font-semibold tracking-tight text-slate-100">Create Your Moodboard</h2>
-          <p className="text-sm text-slate-300">
-            Tell us what you&apos;re aiming for or feeling. We&apos;ll turn it into a vibrant, interactive moodboard.
-          </p>
+      <div className="relative flex flex-col gap-3 z-10">
+        <h2 className="text-lg font-semibold tracking-tight text-slate-100">Create Moodboard</h2>
+        
+        {/* Segment Selector */}
+        <div className="flex flex-col gap-2">
+          <label className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-300">Target Segment</label>
+          <div className="grid grid-cols-4 gap-2">
+            {[1, 2, 3, 4].map(seg => (
+              <button
+                key={seg}
+                type="button"
+                onClick={() => setActiveSegment(seg as 1 | 2 | 3 | 4)}
+                className={`px-3 py-2 rounded-lg text-sm font-bold transition-all duration-200 ${
+                  activeSegment === seg
+                    ? 'bg-cyan-400 text-slate-900 shadow-[0_0_12px_rgba(34,211,238,0.4)]'
+                    : 'bg-slate-800/60 text-slate-300 hover:bg-slate-700/80 border border-slate-700/50'
+                }`}
+              >
+                {seg}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      <form onSubmit={handleSubmitIntent} className="relative flex flex-col gap-4 flex-1 z-10">
-        {/* Domain selector */}
-        <div className="flex flex-col gap-2">
-          <label className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-300">Domain</label>
-          <select
-            value={selectedDomain}
-            onChange={(e) => setSelectedDomain(e.target.value)}
-            disabled={isLoading}
-            className="input-steel"
-          >
-            <option value="health">Health & Wellness</option>
-            <option value="finance">Finance & Budgeting</option>
-            <option value="goals">Goals & Aspirations</option>
-          </select>
-        </div>
-
+      <form onSubmit={handleSubmitIntent} className="relative flex flex-col gap-3 flex-1 z-10">
         {/* Intent input */}
         <div className="flex flex-col gap-2 flex-1">
           <label className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-300">
-            What&apos;s Your Goal or Mood?
+            Describe Your Intent
           </label>
           <textarea
             value={intentInput}
             onChange={(e) => setIntentInput(e.target.value)}
-            placeholder="Describe what you want to achieve, explore, or feel—short and sweet is great."
+            placeholder="What do you want to achieve or visualize?"
             disabled={isLoading}
-            className="input-steel flex-1 min-h-[180px] resize-none"
+            className="input-steel flex-1 min-h-[120px] resize-none"
           />
         </div>
 
@@ -323,28 +326,23 @@ export default function IntentConsole({
       </form>
 
       {lastMoodContext && (
-        <div className="relative flex flex-col gap-3 pt-4 border-t border-white/20 z-10">
-          <div className="flex items-center justify-between text-slate-200">
-            <div className="text-sm font-semibold">Refine mood asset</div>
-            <span className="text-xs text-slate-400">Optional tweak</span>
-          </div>
+        <div className="relative flex flex-col gap-2 pt-3 border-t border-white/20 z-10">
+          <label className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-300">Refine Component</label>
           <textarea
             value={refineText}
             onChange={(e) => setRefineText(e.target.value)}
-            placeholder="E.g. make it calmer, add darker palette, include streak tracker"
+            placeholder="Describe changes: e.g., darker colors, add animation"
             disabled={isLoading}
-            className="input-steel min-h-[96px] resize-none"
+            className="input-steel min-h-[70px] resize-none text-sm"
           />
-          <div className="flex justify-end">
-            <button
-              type="button"
-              onClick={handleRefine}
-              disabled={isLoading || !refineText.trim()}
-              className="button-steel px-4 py-2"
-            >
-              {isLoading ? 'Refining...' : 'Refine & Update Canvas'}
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={handleRefine}
+            disabled={isLoading || !refineText.trim()}
+            className="button-steel w-full justify-center py-2 text-sm"
+          >
+            {isLoading ? 'Refining...' : '✨ Apply Refinement'}
+          </button>
         </div>
       )}
     </div>

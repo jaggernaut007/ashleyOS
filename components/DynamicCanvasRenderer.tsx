@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import * as Babel from "@babel/standalone";
-import { useCode } from "@/context/CodeContext";
+import { useCode, SegmentId } from "@/context/CodeContext";
 
 // Configure a preset for React + TypeScript with automatic JSX runtime
 Babel.registerPreset("tsx-react", {
@@ -15,11 +15,13 @@ Babel.registerPreset("tsx-react", {
 interface DynamicCanvasRendererProps {
   code?: string;
   className?: string;
+  segmentId?: SegmentId;
 }
 
-export default function DynamicCanvasRenderer({ code: propCode, className }: DynamicCanvasRendererProps) {
-  const { code: contextCode } = useCode();
-  const code = propCode || contextCode;
+export default function DynamicCanvasRenderer({ code: propCode, className, segmentId }: DynamicCanvasRendererProps) {
+  const { code: contextCode, segments, activeSegment } = useCode();
+  // Use propCode if provided, otherwise use context code for the specific segment
+  const code = propCode || (segmentId ? segments[segmentId] : contextCode);
   const [error, setError] = useState<string | null>(null);
   const [Comp, setComp] = useState<React.ComponentType | null>(null);
   const trimmed = (code ?? "").trim();

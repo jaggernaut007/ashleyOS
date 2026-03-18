@@ -9,7 +9,7 @@ import { openai } from '@ai-sdk/openai';
 import { AgentResponse } from './messageBus';
 import { MessageBus } from './messageBus';
 import { designLanguagePrompt, applyDesignGuidance } from './designLanguage';
-import { CODING_MODEL, CODING_MODEL_OPTIONS } from './aiConfig';
+import { CODING_MODEL, CODING_MODEL_OPTIONS, summarizeUsage } from './aiConfig';
 
 /**
  * Extract JSON from text that might contain markdown code blocks
@@ -73,9 +73,7 @@ Craft the structured prompt as requested.`,
 
     console.log('[agents:PromptWriter] Token usage', {
       userQuery,
-      promptTokens: usage?.promptTokens ?? 0,
-      completionTokens: usage?.completionTokens ?? 0,
-      totalTokens: usage?.totalTokens ?? (usage?.promptTokens ?? 0) + (usage?.completionTokens ?? 0),
+      ...summarizeUsage(usage),
     });
 
     try {
@@ -138,9 +136,7 @@ Respond in JSON format:
 
     console.log('[agents:UIUX] Token usage', {
       userQuery,
-      promptTokens: usage?.promptTokens ?? 0,
-      completionTokens: usage?.completionTokens ?? 0,
-      totalTokens: usage?.totalTokens ?? (usage?.promptTokens ?? 0) + (usage?.completionTokens ?? 0),
+      ...summarizeUsage(usage),
     });
 
     try {
@@ -197,9 +193,7 @@ Respond in JSON format:
 
     console.log('[agents:Frontend] Token usage', {
       userQuery,
-      promptTokens: usage?.promptTokens ?? 0,
-      completionTokens: usage?.completionTokens ?? 0,
-      totalTokens: usage?.totalTokens ?? (usage?.promptTokens ?? 0) + (usage?.completionTokens ?? 0),
+      ...summarizeUsage(usage),
     });
 
     try {
@@ -254,9 +248,7 @@ Respond in JSON format:
 
     console.log('[agents:Analytics] Token usage', {
       userQuery,
-      promptTokens: usage?.promptTokens ?? 0,
-      completionTokens: usage?.completionTokens ?? 0,
-      totalTokens: usage?.totalTokens ?? (usage?.promptTokens ?? 0) + (usage?.completionTokens ?? 0),
+      ...summarizeUsage(usage),
     });
 
     try {
@@ -312,9 +304,7 @@ Respond in JSON format:
 
     console.log('[agents:Marketing] Token usage', {
       userQuery,
-      promptTokens: usage?.promptTokens ?? 0,
-      completionTokens: usage?.completionTokens ?? 0,
-      totalTokens: usage?.totalTokens ?? (usage?.promptTokens ?? 0) + (usage?.completionTokens ?? 0),
+      ...summarizeUsage(usage),
     });
 
     try {
@@ -379,9 +369,7 @@ Respond in JSON format:
 
     console.log('[agents:QA] Token usage', {
       userQuery,
-      promptTokens: usage?.promptTokens ?? 0,
-      completionTokens: usage?.completionTokens ?? 0,
-      totalTokens: usage?.totalTokens ?? (usage?.promptTokens ?? 0) + (usage?.completionTokens ?? 0),
+      ...summarizeUsage(usage),
     });
 
     try {
@@ -524,8 +512,8 @@ Return ONLY the component code, no markdown, no explanations.`;
 
     const eventType = allApproved ? 'codegen:complete' : 'codegen:error';
     const payload = allApproved
-      ? { code: generatedCode, approved: true, evaluations, mood: context.domain }
-      : { error: 'Code review failed after retries', evaluations, mood: context.domain };
+      ? { code: generatedCode, approved: true, evaluations, mood: 'generated' }
+      : { error: 'Code review failed after retries', evaluations, mood: 'generated' };
 
     messageBus.publishToTopic(eventType, payload as any);
 
