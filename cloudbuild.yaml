@@ -1,7 +1,6 @@
 substitutions:
   _REGION: europe-west1
   _SERVICE: ashley-os-landing
-  _IMAGE: ${_REGION}-docker.pkg.dev/$PROJECT_ID/ashley-os/${_SERVICE}:$COMMIT_SHA
   _OPENAI_SECRET: OPENAI_API_KEY
 
 steps:
@@ -9,13 +8,13 @@ steps:
     args:
       - build
       - -t
-      - ${_IMAGE}
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/ashley-os/${_SERVICE}:latest
       - .
 
   - name: gcr.io/cloud-builders/docker
     args:
       - push
-      - ${_IMAGE}
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/ashley-os/${_SERVICE}:latest
 
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: gcloud
@@ -24,7 +23,7 @@ steps:
       - deploy
       - ${_SERVICE}
       - --image
-      - ${_IMAGE}
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/ashley-os/${_SERVICE}:latest
       - --region
       - ${_REGION}
       - --platform
@@ -33,7 +32,7 @@ steps:
       - --set-env-vars
       - NODE_ENV=production,BOARD_STORAGE_MODE=memory
       - --set-secrets
-      - OPENAI_API_KEY=${_OPENAI_SECRET}:latest
+      - OPENAI_API_KEY=${_OPENAI_SECRET}:latest,SOVEREIGN_OS_PIN=SOVEREIGN_OS_PIN:latest,JOBSCOUT_API_URL=JOBSCOUT_API_URL:latest,JOBSCOUT_API_KEY=JOBSCOUT_API_KEY:latest,JOBSCOUT_WEB_PASSWORD=JOBSCOUT_WEB_PASSWORD:latest,CAREER_ASSISTANT_API_URL=CAREER_ASSISTANT_API_URL:latest,CAREER_ASSISTANT_API_KEY=CAREER_ASSISTANT_API_KEY:latest
 
 images:
-  - ${_IMAGE}
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/ashley-os/${_SERVICE}:latest
